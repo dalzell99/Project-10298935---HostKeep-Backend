@@ -1,0 +1,130 @@
+$background-color: #fff
+$header-background-color: #9C9BA0
+$company-color: #00b7a6
+
+.hidden
+  display: none
+
+header
+  & > :first-child
+    background-color: $header-background-color
+    color: $background-color
+    height: 3em
+
+    button
+      background-color: $background-color
+      color: initial
+      display: none
+      float: right
+      margin-top: 5px
+
+      @media (max-width: 520px)
+        padding: 5px 10px
+
+    span
+      font-size: 1.3rem
+
+  img
+    margin: 0
+    max-width: 100%
+
+  & > :last-child
+    border-bottom: 3px solid $company-color
+    color: $company-color
+    font-size: 2em
+
+button
+  background-color: $company-color
+  padding: 5px 40px
+  border: 0
+  font-weight: bold
+
+nav
+  display: none
+  width: 100%
+
+  &:hover
+    cursor: pointer
+
+  table
+    width: 100%
+
+    td
+      width: 20%
+      padding: 0
+
+      div
+        background-color: lighten($header-background-color, 20%)
+        color: darken($header-background-color, 30%)
+        margin: 3%
+        height: 4em
+        text-align: center
+        padding-top: 1.3em
+        font-size: 1.1em
+        font-weight: bold
+
+        /* Stop text selection */
+        -webkit-touch-callout: none
+        -webkit-user-select: none
+        -khtml-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
+
+        @media (max-width: 1200px)
+          font-size: .85em
+
+        @media (max-width: 768px)
+          font-size: .65em
+
+        &:hover
+          background-color: lighten($header-background-color, 30%)
+
+        &.active
+          background-color: $company-color
+          color: $background-color
+
+      & .admin
+        display: none
+
+      &:nth-child(5) > div
+        @media (max-width: 489px)
+          padding-top: .7em
+
+input,
+select,
+textarea
+  margin: 2px
+  border: 1px solid $company-color
+  width: 100%
+
+  &:disabled
+    background-color: #EBEBE4
+
+td
+  padding: 0 5px
+
+p
+  margin: 20px 0
+
+label
+  font-weight: initial
+  margin-bottom: initial
+
+footer
+  border-top: 3px solid $company-color
+  font-size: .7em
+  padding-top: 5px
+  margin-top: 50px
+
+.fa
+  display: none
+
+  &.fa-check
+    color: #0F0
+
+  &.fa-times
+    color: #F00
+
+  &.fa-15x
+    font-size: 1.5em

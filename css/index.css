@@ -1,0 +1,7 @@
+header button {
+  display: none;
+}
+
+table td:nth-child(2) {
+  width: 300px;
+}

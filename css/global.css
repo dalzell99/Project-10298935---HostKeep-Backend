@@ -1,0 +1,161 @@
+.hidden {
+  display: none;
+}
+
+header > :first-child {
+  background-color: #9C9BA0;
+  color: #fff;
+  height: 3em;
+}
+
+header > :first-child button {
+  background-color: #fff;
+  color: initial;
+  display: none;
+  float: right;
+  margin-top: 5px;
+}
+
+@media (max-width: 520px) {
+  header > :first-child button {
+    padding: 5px 10px;
+  }
+}
+
+header > :first-child span {
+  font-size: 1.3rem;
+}
+
+header img {
+  margin: 0;
+  max-width: 100%;
+}
+
+header > :last-child {
+  border-bottom: 3px solid #00b7a6;
+  color: #00b7a6;
+  font-size: 2em;
+}
+
+button {
+  background-color: #00b7a6;
+  padding: 5px 40px;
+  border: 0;
+  font-weight: bold;
+}
+
+nav {
+  display: none;
+  width: 100%;
+}
+
+nav:hover {
+  cursor: pointer;
+}
+
+nav table {
+  width: 100%;
+}
+
+nav table td {
+  width: 20%;
+  padding: 0;
+}
+
+nav table td div {
+  background-color: #d0cfd2;
+  color: #504f53;
+  margin: 3%;
+  height: 4em;
+  text-align: center;
+  padding-top: 1.3em;
+  font-size: 1.1em;
+  font-weight: bold;
+  /* Stop text selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@media (max-width: 1200px) {
+  nav table td div {
+    font-size: .85em;
+  }
+}
+
+@media (max-width: 768px) {
+  nav table td div {
+    font-size: .65em;
+  }
+}
+
+nav table td div:hover {
+  background-color: #eae9eb;
+}
+
+nav table td div.active {
+  background-color: #00b7a6;
+  color: #fff;
+}
+
+nav table td .admin {
+  display: none;
+}
+
+@media (max-width: 489px) {
+  nav table td:nth-child(5) > div {
+    padding-top: .7em;
+  }
+}
+
+input,
+select,
+textarea {
+  margin: 2px;
+  border: 1px solid #00b7a6;
+  width: 100%;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background-color: #EBEBE4;
+}
+
+td {
+  padding: 0 5px;
+}
+
+p {
+  margin: 20px 0;
+}
+
+label {
+  font-weight: initial;
+  margin-bottom: initial;
+}
+
+footer {
+  border-top: 3px solid #00b7a6;
+  font-size: .7em;
+  padding-top: 5px;
+  margin-top: 50px;
+}
+
+.fa {
+  display: none;
+}
+
+.fa.fa-check {
+  color: #0F0;
+}
+
+.fa.fa-times {
+  color: #F00;
+}
+
+.fa.fa-15x {
+  font-size: 1.5em;
+}

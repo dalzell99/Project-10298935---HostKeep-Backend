@@ -1,0 +1,14 @@
+{
+	"protocol": "ftp",
+	"host": "ftp.stephencolman.com.au",
+	"port": 21,
+	"user": "uistaging@stephencolman.com.au",
+	"pass": "c!9wE2gNMXaH%@O",
+	"promptForPass": false,
+	"remote": "/",
+	"secure": false,
+	"secureOptions": null,
+	"connTimeout": 10000,
+	"pasvTimeout": 10000,
+	"keepalive": 10000
+}
