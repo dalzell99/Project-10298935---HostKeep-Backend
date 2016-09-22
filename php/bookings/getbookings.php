@@ -7,15 +7,9 @@ if (mysqli_connect_errno()) {
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-if (isset($_GET['beyondPricingID'])) {
-	$beyondPricingID = $_GET['beyondPricingID'];
-} else {
-	if($result = mysqli_query($con, "SELECT beyondPricingID FROM Properties WHERE propertyID = '" . $_GET['propertyID'] . "'")) {
-		$beyondPricingID = mysqli_fetch_assoc($result)['beyondPricingID'];
-	}
-}
+$airbnbID = $_GET['airbnbID'];
 
-$sql = "SELECT * FROM Bookings WHERE beyondPricingID = $beyondPricingID";
+$sql = "SELECT * FROM Bookings WHERE airbnbID = $airbnbID";
 if ($result = mysqli_query($con, $sql)) {
 	$response = [];
 	while ($row = mysqli_fetch_assoc($result)) {

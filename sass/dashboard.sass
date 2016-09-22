@@ -1,394 +1,420 @@
 $company-color: #00b7a6
 
 header
-  nav
-    display: block
+	nav
+		display: block
 
-  & > :first-child
-    button
-      display: block
+	& > :first-child
+		button
+			display: block
 
-    select
-      color: initial
-      margin-top: 5px
-      padding: 5px
-      width: 85%
+		select
+			color: initial
+			margin-top: 5px
+			padding: 5px
+			width: 85%
 
 main > div
-  display: none
-  margin-top: 10px
+	display: none
+	margin-top: 10px
 
-  &#welcome
-    .proposalUser
-      display: none
+	&#welcome
+		.proposalUser
+			display: none
 
-  &#profile
-    .profileSeparator
-      height: 30px
+	&#profile
+		.profileSeparator
+			height: 30px
 
-      div
-        border-bottom: 1px solid lightgrey
+			div
+				border-bottom: 1px solid lightgrey
 
-    table
-      width: 100%
-      margin-bottom: 20px
+		table
+			width: 100%
+			margin-bottom: 20px
 
-      th,
-      td
-        &:not(:nth-child(4))
-          width: 23%
+			th,
+			td
+				&:not(:nth-child(4))
+					width: 23%
 
-          @media (max-width: 992px)
-            width: 33.33%
+					@media (max-width: 992px)
+						width: 33.33%
 
-        &:nth-child(4)
-          width: 31%
+				&:nth-child(4)
+					width: 31%
 
-          @media (max-width: 992px)
-            display: none
+					@media (max-width: 992px)
+						display: none
 
-  &#properties
-    #propertiesAdd,
-    #propertiesAddNewProperty,
-    #propertyMobile
-      display: none
+	&#properties
+		#propertiesAdd,
+		#propertiesAddNewProperty,
+		#propertyMobile
+			display: none
 
-    @media (max-width: 600px)
-      #propertyMobile
-        display: block
+		@media (max-width: 600px)
+			#propertyMobile
+				display: block
 
-      #propertyTable
-        display: none
+			#propertyTable
+				display: none
 
-    table#propertyTable
-      width: 100%
+		table#propertyTable
+			width: 100%
 
-      th
-        font-size: 0.9em
-        cursor: pointer
+			th
+				font-size: 0.9em
+				cursor: pointer
 
-      th,
-      td
-        padding: 5px
-        text-align: left
-        cursor: pointer
+			th,
+			td
+				padding: 5px
+				text-align: left
+				cursor: pointer
 
-        &:nth-child(1)
-          width: 18%
+				&:nth-child(1)
+					width: 18%
 
-          img
-            width: 100%
+					img
+						width: 100%
 
-        &:nth-child(3)
-          width: 12.5%
+				&:nth-child(3)
+					width: 12.5%
 
-        &:nth-child(4)
-          width: 20%
+				&:nth-child(4)
+					width: 20%
 
-        &:nth-child(5)
-          width: 40%
+				&:nth-child(5)
+					width: 40%
 
-        &:nth-child(7) > div
-          border: 1px solid $company-color
+				&:nth-child(7) > div
+					border: 1px solid $company-color
 
-      img
-        width: 200px
+			img
+				width: 200px
 
-    table#propertyMobile
-      width: 100%
-      font-size: .8em
+		table#propertyMobile
+			width: 100%
+			font-size: .8em
 
-      tr:not(:first-child)
-        border-top: 1px solid lightgrey
+			tr:not(:first-child)
+				border-top: 1px solid lightgrey
 
-      td
-        padding: 15px 5px
-        text-align: left
-        cursor: pointer
+			td
+				padding: 15px 5px
+				text-align: left
+				cursor: pointer
 
-        &:nth-child(1)
-          width: 40%
+				&:nth-child(1)
+					width: 40%
 
-          img
-            width: 100%
+					img
+						width: 100%
 
-        &:nth-child(3)
-          width: 60%
+				&:nth-child(3)
+					width: 60%
 
-          & > div:nth-child(2)
-            margin-bottom: 1em
-
-          & > div:nth-child(3) div
-            border: 1px solid $company-color
-            width: 20%
-            display: inline-block
-
-    #propertySubpage
-      .calendar-container
-        position: relative
-        padding-bottom: 100%
-        height: 0
-        overflow: hidden
-
-        @media (max-width: 992px)
-          padding-bottom: 50%
-
-        @media (min-width: 1200px)
-          padding-bottom: 75%
-
-        @media (max-width: 650px)
-          padding-bottom: 75%
-
-        iframe
-          position: absolute
-          top:0
-          left: 0
-          width: 100%
-          height: 100%
-
-      img
-        &.propertyImage
-          width: 100%
-          cursor: pointer
-
-        &.airbnbButtonImage,
-        &.makeBookingButtonImage
-          margin-right: 5px
-          width: 24px
-
-      .propertySubpageSeparator
-        height: 2px
-        border-bottom: 1px solid lightgrey
-
-      .propertySubpageLinkButtons
-        width: 49%
-        padding: 5px 0
-
-      #propertySubpageMakeBookingButton
-        background-color: #668cd9
-
-      .row
-        border-bottom: 1px solid lightgrey
-
-        &:last-child
-          border: 0
-
-        & > div
-          margin: 15px 0
-
-      #propertySubpagePropertyStatus
-        width: 120px
-
-      #propertySubpageCommencementFeeReceivedYes,
-      #propertySubpageCommencementFeeReceivedNo
-        width: 30px
-
-      #infoContainer table td:first-child
-          width: 130px
-
-      table
-        width: 100%
-
-        td, th
-          padding: 5px 0
-
-        &#propertySubpageImageAndButton td
-          text-align: center
-          color: white
-
-        &#bookingCalendar
-          td, th
-            color: $company-color
-            font-weight: bold
-            font-size: 1.3rem
-
-          th
-            text-align: center
-            font-size: 2rem
-
-            img
-              margin: 0 5px
-
-          .available
-            background-color: #dce0e0
-            color: white
-
-        div[contenteditable='true']
-          display: inline-block
-          width: 70px
-
-        [contenteditable='true']
-          padding-left: 2px
-          border: 1px solid $company-color
-
-      iframe .nav-table
-        td
-          &:nth-child(5),
-          &:nth-child(6),
-          &.calendar-nav,
-          &.date-nav-buttons .today-button
-            display: none
-
-  &#documents
-    #documentsAdd,
-    #documentsAddNewDocument,
-    #documentsAddFilename
-      display: none
-
-    #orText
-      text-align: left
-      font-size: 2em
-      font-weight: bold
-
-    .nav.nav-tabs
-      margin-top: 20px
-
-    table
-      width: 100%
-
-      th
-        font-size: 0.9em
-        cursor: pointer
-
-      th,
-      td
-        padding: 5px
-        text-align: left
-
-        &:nth-child(1)
-          width: 26%
-
-        &:nth-child(2),
-        &:nth-child(3)
-          width: 8%
-
-        &:nth-child(4),
-        &:nth-child(5)
-          width: 10%
-          text-align: left
-
-          img
-            cursor: pointer
-
-        &:nth-child(6)
-          width: 10%
-
-          @media (max-width: 992px)
-            display: none
-
-      td:nth-child(1) div
-        cursor: pointer
-        font-weight: bold
-
-      tbody tr:not(:last-child)
-        border-bottom: 1px solid lightgrey
-
-  &#directBooking
-    .bookingSeparator
-      height: 15px
-
-      div
-        border-bottom: 1px solid lightgrey
-        margin-top: 10px
-
-    #directBookingDivider
-      border-bottom: 3px solid $company-color
-      height: 3px
-      margin: 20px 0
-
-    #directBookingAddButton
-      margin-left: 5px
-
-    #directBookingAddNewBooking
-      & > table
-        width: 100%
-
-        p
-          margin: 8px 0
-
-        input[type="radio"]
-          width: initial
-
-        #directBookingNightlyRate
-          width: 30%
-
-        & > tbody > tr > th,
-        & > tbody > tr > td
-          &:not(:nth-child(3))
-            width: 30%
-
-            @media (max-width: 992px)
-              width: 50%
-
-          &:nth-child(3)
-            width: 40%
-
-            @media (max-width: 992px)
-              display: none
-
-    table.picker__table th
-      text-align: center
-
-    table#bookingTable
-      width: 100%
-
-      th
-        font-size: 0.9em
-        cursor: pointer
-
-      th,
-      td
-        padding: 5px
-        text-align: left
-
-        // &:nth-child(1),
-        // &:nth-child(2),
-        // &:nth-child(3)
-        //   width: 15%
-        //
-        // &:nth-child(4)
-        //   width: 18%
-        //
-        // &:nth-child(5)
-        //   width: 37%
-
-  &#admin
-    button
-      margin-top: 10px
-
-    .usersLabel
-      margin-top: 20px
-      margin-bottom: 5px
-
-    #adminContractExpiryEmailTimeTable
-      margin-bottom: 20px
-
-      input
-        width: inherit
-
-    table#userTable
-      width: 100%
-
-      th
-        font-size: 0.9em
-
-      th,
-      td
-        padding: 5px
-        border-top: 1px solid teal
-
-        &:nth-child(6),
-        &:nth-child(7)
-          text-align: left
-
-      img.sendWelcomeEmail
-        height: 24px
-        cursor: pointer
-
-      img.deleteCustomer
-        height: 22px
-        cursor: pointer
+					& > div:nth-child(2)
+						margin-bottom: 1em
+
+					& > div:nth-child(3) div
+						border: 1px solid $company-color
+						width: 20%
+						display: inline-block
+
+		#propertySubpage
+			.calendar-container
+				position: relative
+				padding-bottom: 100%
+				height: 0
+				overflow: hidden
+
+				@media (max-width: 992px)
+					padding-bottom: 50%
+
+				@media (min-width: 1200px)
+					padding-bottom: 75%
+
+				@media (max-width: 650px)
+					padding-bottom: 75%
+
+				iframe
+					position: absolute
+					top:0
+					left: 0
+					width: 100%
+					height: 100%
+
+			img
+				&.propertyImage
+					width: 100%
+					cursor: pointer
+
+				&.airbnbButtonImage,
+				&.makeBookingButtonImage
+					margin-right: 5px
+					width: 24px
+
+			.propertySubpageSeparator
+				height: 2px
+				border-bottom: 1px solid lightgrey
+
+			.propertySubpageLinkButtons
+				width: 49%
+				padding: 5px 0
+
+			#propertySubpageMakeBookingButton
+				background-color: #668cd9
+
+			.row
+				border-bottom: 1px solid lightgrey
+
+				&:last-child
+					border: 0
+
+				& > div
+					margin: 15px 0
+
+			#propertySubpagePropertyStatus
+				width: 120px
+
+			#propertySubpageCommencementFeeReceivedYes,
+			#propertySubpageCommencementFeeReceivedNo
+				width: 30px
+
+			#infoContainer table td:first-child
+					width: 130px
+
+			table
+				width: 100%
+
+				td, th
+					padding: 5px 0
+
+				&#propertySubpageImageAndButton td
+					text-align: center
+					color: white
+
+				&#bookingCalendar th
+					color: black
+					text-align: center
+
+				.reservationCalendar
+					padding: 0
+
+					li.tile
+						width: calc(100% / 7)
+						display: inline-block
+						color: black
+						position: relative
+						float: left
+						border: 1px solid rgba(127, 255, 212, 0.5)
+
+						.date
+							padding: 1.5% 5% 80% 6%
+
+						.reservationMarker
+							position: absolute
+							top: 50%
+							left: 0
+							right: 0
+							height: 18px
+							background-color: aquamarine
+
+							&.reservationStartMarker
+								left: 25%
+								border-radius: 10px 0 0 10px
+
+							&.reservationEndMarker
+								right: 85%
+								border-radius: 0 10px 10px 0
+
+							.reservationGuestInfo
+								.reservationGuestThumbnail
+									border-radius: 50%
+									position: relative
+									z-index: 1
+									height: 50px
+									top: -15px
+									left: 10px
+
+				div[contenteditable='true']
+					display: inline-block
+					width: 70px
+
+				[contenteditable='true']
+					padding-left: 2px
+					border: 1px solid $company-color
+
+			iframe .nav-table
+				td
+					&:nth-child(5),
+					&:nth-child(6),
+					&.calendar-nav,
+					&.date-nav-buttons .today-button
+						display: none
+
+	&#documents
+		#documentsAdd,
+		#documentsAddNewDocument,
+		#documentsAddFilename
+			display: none
+
+		#orText
+			text-align: left
+			font-size: 2em
+			font-weight: bold
+
+		.nav.nav-tabs
+			margin-top: 20px
+
+		table
+			width: 100%
+
+			th
+				font-size: 0.9em
+				cursor: pointer
+
+			th,
+			td
+				padding: 5px
+				text-align: left
+
+				&:nth-child(1)
+					width: 26%
+
+				&:nth-child(2),
+				&:nth-child(3)
+					width: 8%
+
+				&:nth-child(4),
+				&:nth-child(5)
+					width: 10%
+					text-align: left
+
+					img
+						cursor: pointer
+
+				&:nth-child(6)
+					width: 10%
+
+					@media (max-width: 992px)
+						display: none
+
+			td:nth-child(1) div
+				cursor: pointer
+				font-weight: bold
+
+			tbody tr:not(:last-child)
+				border-bottom: 1px solid lightgrey
+
+	&#directBooking
+		.bookingSeparator
+			height: 15px
+
+			div
+				border-bottom: 1px solid lightgrey
+				margin-top: 10px
+
+		#directBookingDivider
+			border-bottom: 3px solid $company-color
+			height: 3px
+			margin: 20px 0
+
+		#directBookingAddButton
+			margin-left: 5px
+
+		#directBookingAddNewBooking
+			& > table
+				width: 100%
+
+				p
+					margin: 8px 0
+
+				input[type="radio"]
+					width: initial
+
+				#directBookingNightlyRate
+					width: 30%
+
+				& > tbody > tr > th,
+				& > tbody > tr > td
+					&:not(:nth-child(3))
+						width: 30%
+
+						@media (max-width: 992px)
+							width: 50%
+
+					&:nth-child(3)
+						width: 40%
+
+						@media (max-width: 992px)
+							display: none
+
+		table.picker__table th
+			text-align: center
+
+		table#bookingTable
+			width: 100%
+
+			th
+				font-size: 0.9em
+				cursor: pointer
+
+			th,
+			td
+				padding: 5px
+				text-align: left
+
+				// &:nth-child(1),
+				// &:nth-child(2),
+				// &:nth-child(3)
+				//   width: 15%
+				//
+				// &:nth-child(4)
+				//   width: 18%
+				//
+				// &:nth-child(5)
+				//   width: 37%
+
+	&#admin
+		button
+			margin-top: 10px
+
+		.usersLabel
+			margin-top: 20px
+			margin-bottom: 5px
+
+		#adminContractExpiryEmailTimeTable
+			margin-bottom: 20px
+
+			input
+				width: inherit
+
+		table#userTable
+			width: 100%
+
+			th
+				font-size: 0.9em
+
+			th,
+			td
+				padding: 5px
+				border-top: 1px solid teal
+
+				&:nth-child(6),
+				&:nth-child(7)
+					text-align: left
+
+			img.sendWelcomeEmail
+				height: 24px
+				cursor: pointer
+
+			img.deleteCustomer
+				height: 22px
+				cursor: pointer
 
 input[type='checkbox']
-  width: initial
-  margin-left: 10px
+	width: initial
+	margin-left: 10px
