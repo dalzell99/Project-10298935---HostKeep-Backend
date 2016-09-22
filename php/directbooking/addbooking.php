@@ -52,6 +52,19 @@ if (mysqli_query($con, $sql)) {
 
 	echo 'success' . $id;
 
+	sendEmail($hostkeepEmail, $noReplyEmail, "New Direct Booking", "
+	Username: $username <br />
+	Property: $propertyName <br />
+	Guest Name: $guestName <br />
+	Guest Mobile: $guestMobile <br />
+	Guest Email: $guestEmail <br />
+	Check-in: " . substr($guestCheckIn, 6, 2) . '/' . substr($guestCheckIn, 4, 2) . '/' . substr($guestCheckIn, 0, 4) . "<br />
+	Check-out: " . substr($guestCheckOut, 6, 2) . '/' . substr($guestCheckOut, 4, 2) . '/' . substr($guestCheckOut, 0, 4) . "<br />
+	Invoiced: $invoiced <br />
+	" . ($invoiced == 'true' ? "Nightly Rate: $nightlyRate <br />" : "") . "
+	Cleanup: $cleanUp <br />
+	Notes: $notes
+	");
 } else {
 	echo 'fail';
 	sendErrorEmail("

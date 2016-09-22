@@ -18,7 +18,7 @@ var checkinDatePicker;
 var checkoutDatePicker;
 var currentYear;
 var currentMonth;
-var currentPropertyBeyondPricingID;
+var currentAirbnbID;
 var currentContractExpiryDate = '';
 
 $(function() {
@@ -610,7 +610,7 @@ function propertySubpage() {
 
 		var html = '';
 
-		html += "<div class='col-md-5 col-md-push-7 col-xs-12'>";
+		html += "<div class='col-md-6 col-md-push-6 col-xs-12'>";
 		html += "    <table id='propertySubpageImageAndButton'>";
 		html += "        <tr>";
 		html += "            <td><img class='propertyImage' src='" + imageURL + "' alt=''></td>";
@@ -636,7 +636,7 @@ function propertySubpage() {
 		html += "    </table>";
 		html += "</div>";
 
-		html += "<div id='infoContainer' class='col-md-7 col-md-pull-5 col-xs-12'>";
+		html += "<div id='infoContainer' class='col-md-6 col-md-pull-6 col-xs-12'>";
 		html += "    <div class='row'>";
 		html += "        <div class='col-xs-12'>";
 		html += "            <table>";
@@ -883,7 +883,7 @@ function propertySubpage() {
 		addPropertySubpageImageEvent();
 
 		// Create calendar
-		currentPropertyBeyondPricingID = propertyInfo.beyondPricingID;
+		currentAirbnbID = propertyInfo.airbnbURL;
 		createCalendar(currentYear, currentMonth);
 
 		$("#footer #calendarIconLink").show();
@@ -1158,7 +1158,8 @@ function documents() {
 							html += "<tr>";
 							html += "    <td class='name'><div onclick='viewDocument(\"" + filename + "\")'>" + filenameMinusExtension + "</div></td>";
 							html += "    <td class='propertyID'>" + $("#documentsAddPropertyID option:selected").text() + "</td>";
-							html += "    <td class='month' sorttable_customkey='" + months.indexOf($("#documentsAddMonth").val()) + "'>" + $("#documentsAddMonth").val() + "</td>";
+							html += "    <td class='month' sorttable_customkey='" + $("#documentsAddYear").val() + pad(months.indexOf($("#documentsAddMonth").val()), 2) + "'>" + $("#documentsAddMonth").val() + "</td>";
+							html += "    <td class='year' sorttable_customkey='" + $("#documentsAddYear").val() + pad(months.indexOf($("#documentsAddMonth").val()), 2) + "'>" + $("#documentsAddYear").val() + "</td>";
 							html += "    <td><img src='images/download.png' alt='' onclick='viewDocument(\"" + filename + "\")' /></td>";
 							html += "    <td><img src='images/delete.png' alt='' onclick='deleteDocument(\"" + response[2] + "\")' /></td>";
 							html += "    <td></td>";
@@ -1181,8 +1182,6 @@ function documents() {
 						// Clear inputs
 						//$("#documentsAddName").val('');
 						//$("#documentsAddPropertyID").val('');
-						// Change month dropdown to the next month
-						$("#documentsAddMonth").prop('selectedIndex', $("#documentsAddMonth").prop('selectedIndex') + 1);
 						$("#documentsAddNotes").val('');
 
 						// Add contenteditable change event to the just added table row
@@ -1776,72 +1775,144 @@ function createNewUser() {
 function createCalendar() {
 	var daysInMonth = [31, currentYear % 4 === 0 ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 	var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	var shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	var weekDay = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
 
-	// create instance of first day of month, and extract the day on which it occurs
-	var firstDay = new Date(currentYear, currentMonth, 1).getDay() + 1;
-
-	// number of days in current month
-	var lastDate = daysInMonth[currentMonth];
-
-	// Name of month
+	var currentDate = moment({day: 1, month: currentMonth}).subtract(moment({day: 1, month: currentMonth}).day(), 'days');
+	var lastOfMonth = moment({day: 1, month: (currentMonth + 1) % 12}).subtract(1, 'days');
 	var monthName = monthNames[currentMonth];
 
-	// create basic table structure
+	var numDays = 0;
+
 	var html = "";
-	html += "<table id='bookingCalendar'>";
-	html += "    <tr>";
-	html += "        <th colspan='7'>";
-	html += "            <img src='./images/calendar-previous.png' alt='Previous Month' onclick='showPreviousMonth()'>";
+	html += "<div>";
+	html += "    <table id='bookingCalendar'>";
+	html += "        <tr>";
+	html += "            <th colspan='7'>";
+	html += "                <img src='./images/calendar-previous.png' alt='Previous Month' onclick='showPreviousMonth()'>";
 	html += monthName + " " + currentYear;
-	html += "            <img src='./images/calendar-next.png' alt='Next Month' onclick='showNextMonth()'>";
-	html += "        </th>";
-	html += "    </tr>";
-	html += "    <tr>";
-	for (var dayNum = 0; dayNum < 7; dayNum += 1) {
-		html +=  "    <td>" + weekDay[dayNum] + "</td>";
+	html += "                <img src='./images/calendar-next.png' alt='Next Month' onclick='showNextMonth()'>";
+	html += "            </th>";
+	html += "        </tr>";
+	html += "    </table>";
+	html += "    <ul class='reservationCalendar'>";
+
+	weekDay.forEach(function (day) {
+		html += "    <li class='tile'>";
+		html += "        <div class='days'>" + day + "</div>";
+		html += "    </li>";
+	});
+
+	while (lastOfMonth.diff(currentDate) >= 0 || (numDays % 7 !== 0 && lastOfMonth.diff(currentDate) < 0)) {
+		html += "    <li class='tile " + currentDate.format('YYYY-MM-DD') + "'>";
+		html += "        <div class='date'>" + (currentDate.date() === 1 ? shortMonthNames[currentDate.month()] + " " : "") + currentDate.date() + "</div>";
+		html += "    </li>";
+
+		currentDate.add(1, 'days');
+		numDays += 1;
 	}
-	html += "    </tr>";
-
-	// declaration and initialization of two variables to help with tables
-	var dateOfMonth = 1;
-	var currentCell = 1;
-
-	for (var row = 0; row < Math.ceil((lastDate + firstDay - 1) / 7); row += 1) {
-		html += "<tr>";
-		for (var dayOfWeek = 0; dayOfWeek < 7; dayOfWeek += 1) {
-			if (dateOfMonth > lastDate) {
-				break;
-			}
-
-			if (currentCell < firstDay) {
-				html += "<td></td>";
-				currentCell += 1;
-			} else {
-				html += "<td class='" + currentYear + "-" + pad(currentMonth + 1, 2) + "-" + pad(dateOfMonth, 2) + "'>" + dateOfMonth + "</td>";
-				dateOfMonth += 1;
-			}
-		}
-		html += "</tr>";
-	}
-
-	html += "</table>";
+	html += "    </ul>";
+	html += "</div>";
 
 	$("#calendarContainer").html(html);
 
-	if (currentPropertyBeyondPricingID !== '') {
+	if (currentAirbnbID !== '') {
 		addInfoToCalendar();
 	}
 }
 
+// function createCalendar() {
+// 	var daysInMonth = [31, currentYear % 4 === 0 ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+// 	var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+// 	var weekDay = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
+//
+// 	// create instance of first day of month, and extract the day on which it occurs
+// 	var firstDay = new Date(currentYear, currentMonth, 1).getDay() + 1;
+//
+// 	// number of days in current month
+// 	var lastDate = daysInMonth[currentMonth];
+//
+// 	// Name of month
+// 	var monthName = monthNames[currentMonth];
+//
+// 	// create basic table structure
+// 	var html = "";
+// 	html += "<table id='bookingCalendar'>";
+// 	html += "    <tr>";
+// 	html += "        <th colspan='7'>";
+// 	html += "            <img src='./images/calendar-previous.png' alt='Previous Month' onclick='showPreviousMonth()'>";
+// 	html += monthName + " " + currentYear;
+// 	html += "            <img src='./images/calendar-next.png' alt='Next Month' onclick='showNextMonth()'>";
+// 	html += "        </th>";
+// 	html += "    </tr>";
+// 	html += "    <tr>";
+// 	for (var dayNum = 0; dayNum < 7; dayNum += 1) {
+// 		html +=  "    <td>" + weekDay[dayNum] + "</td>";
+// 	}
+// 	html += "    </tr>";
+//
+// 	// declaration and initialization of two variables to help with tables
+// 	var dateOfMonth = 1;
+// 	var currentCell = 1;
+//
+// 	for (var row = 0; row < Math.ceil((lastDate + firstDay - 1) / 7); row += 1) {
+// 		html += "<tr>";
+// 		for (var dayOfWeek = 0; dayOfWeek < 7; dayOfWeek += 1) {
+// 			if (dateOfMonth > lastDate) {
+// 				break;
+// 			}
+//
+// 			if (currentCell < firstDay) {
+// 				html += "<td></td>";
+// 				currentCell += 1;
+// 			} else {
+// 				html += "<td class='" + currentYear + "-" + pad(currentMonth + 1, 2) + "-" + pad(dateOfMonth, 2) + "'><div><span>" + dateOfMonth + "</span></div></td>";
+// 				dateOfMonth += 1;
+// 			}
+// 		}
+// 		html += "</tr>";
+// 	}
+//
+// 	html += "</table>";
+//
+// 	$("#calendarContainer").html(html);
+//
+// 	if (currentAirbnbID !== '') {
+// 		addInfoToCalendar();
+// 	}
+// }
+
 function addInfoToCalendar() {
-	$.get("./php/bookings/getbookings.php", {
-		beyondPricingID: currentPropertyBeyondPricingID
+	$.get("./php/bookings/getreservations.php", {
+		airbnbID: currentAirbnbID
 	}, function(response) {
 		if (response.substr(0, 4) !== 'fail') {
-			JSON.parse(response).forEach(function (booking) {
-				var html = $("." + booking.date).html() + "<br />$" + booking.price;
-				$("." + booking.date).addClass(booking.availability).html(html);
+			var middleMarker = "<div class='reservationMarker reservationMiddleMarker'></div>";
+			var endMarker = "<div class='reservationMarker reservationEndMarker'></div>";
+
+			response = JSON.parse(response);
+			response.reservations.forEach(function (res) {
+				var startMarker = "";
+				startMarker += "<div class='reservationMarker reservationStartMarker'>";
+				startMarker += "    <div class='reservationGuestInfo'>";
+				startMarker += "        <img src='" + res.guestThumbnail + "' alt='image of the guest' class='reservationGuestThumbnail'>";
+				startMarker += "    </div>";
+				startMarker += "</div>";
+				var currentDate = moment(res.startDate);
+				var endDate = moment(res.endDate);
+				var df = "YYYY-MM-DD";
+
+				while (currentDate.diff(endDate) <= 0) {
+					if (currentDate.diff(moment(res.startDate)) === 0) {
+						$('.' + currentDate.format(df)).append(startMarker);
+					} else if (currentDate.diff(endDate) === 0) {
+						$('.' + currentDate.format(df)).append(endMarker);
+					} else {
+						$('.' + currentDate.format(df)).append(middleMarker);
+					}
+
+					currentDate.add(1, 'days');
+				}
 			});
 		} else {
 			displayMessage('error', 'Error getting the bookings for this property');
