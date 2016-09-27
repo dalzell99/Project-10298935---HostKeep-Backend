@@ -276,15 +276,20 @@ main > div#properties #propertySubpage table .reservationCalendar li.tile {
 
 main > div#properties #propertySubpage table .reservationCalendar li.tile .date {
   padding: 1.5% 5% 80% 6%;
+  text-align: left;
 }
 
 main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker {
   position: absolute;
   top: 50%;
-  left: 0;
-  right: 0;
+  left: -1px;
+  right: -1px;
   height: 18px;
-  background-color: aquamarine;
+  background-color: #12a144;
+}
+
+main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker.blockedDate {
+  background-color: darkgrey;
 }
 
 main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker.reservationStartMarker {
@@ -297,6 +302,21 @@ main > div#properties #propertySubpage table .reservationCalendar li.tile .reser
   border-radius: 0 10px 10px 0;
 }
 
+main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestInfo span {
+  position: absolute;
+  top: 0;
+  left: 90px;
+  z-index: 2;
+  color: white;
+  white-space: nowrap;
+}
+
+@media (max-width: 550px) {
+  main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestInfo span {
+    left: 70px;
+  }
+}
+
 main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestInfo .reservationGuestThumbnail {
   border-radius: 50%;
   position: relative;
@@ -304,6 +324,19 @@ main > div#properties #propertySubpage table .reservationCalendar li.tile .reser
   height: 50px;
   top: -15px;
   left: 10px;
+}
+
+@media (max-width: 550px) {
+  main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestInfo .reservationGuestThumbnail {
+    height: 40px;
+    top: -10px;
+  }
+}
+
+main > div#properties #propertySubpage table .reservationCalendar li.tile .bookingPrices {
+  position: absolute;
+  bottom: 5px;
+  left: 30%;
 }
 
 main > div#properties #propertySubpage table div[contenteditable='true'] {

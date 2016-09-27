@@ -14,6 +14,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 	curl_setopt_array($curl, array(
 		CURLOPT_URL => "https://us.smartbnb.io/api/calendar?user_id=5383441&secret=fJDGMEdLPwCFWDJisYNxSqwPnmaxXCzo&format=full&listing_id=" . $row['airbnbURL'],
+		// CURLOPT_URL => "https://us.smartbnb.io/api/calendar?user_id=5383441&secret=fJDGMEdLPwCFWDJisYNxSqwPnmaxXCzo&format=full&listing_id=11419346&start_date=2016-10-13&end_date=2016-10-15",
 		CURLOPT_RETURNTRANSFER => true
 	));
 
@@ -46,8 +47,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 				mysqli_query($con, "REPLACE INTO Reservations (groupID, propertyID, startDate, endDate, guestFullName, guestFirstName, guestImage, guestThumbnail, numNights, numGuests, totalCost) VALUES ('$groupID', '$propertyID', '$startDate', '$endDate', '$guestFullName', '$guestFirstName', '$guestImage', '$guestThumbnail', $numNights, $numGuests, $totalCost)");
 			}
 
+			$type = $day->type;
+			$subtype = $day->subtype;
+			$reason = $day->reason;
 			$available = ($day->available ? 'available' : 'booked');
-			mysqli_query($con, "REPLACE INTO Bookings VALUES ({$row['airbnbURL']}, '$day->date', '$available', {$day->price->native_price})");
+			mysqli_query($con, "REPLACE INTO Bookings VALUES ({$row['airbnbURL']}, '$day->date', '$available', {$day->price->native_price}, '$type', '$subtype', '$reason')");
 		}
 	}
 }

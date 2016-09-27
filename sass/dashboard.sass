@@ -213,14 +213,18 @@ main > div
 
 						.date
 							padding: 1.5% 5% 80% 6%
+							text-align: left
 
 						.reservationMarker
 							position: absolute
 							top: 50%
-							left: 0
-							right: 0
+							left: -1px
+							right: -1px
 							height: 18px
-							background-color: aquamarine
+							background-color: rgb(18, 161, 68)
+
+							&.blockedDate
+								background-color: darkgrey
 
 							&.reservationStartMarker
 								left: 25%
@@ -231,6 +235,17 @@ main > div
 								border-radius: 0 10px 10px 0
 
 							.reservationGuestInfo
+								span
+									position: absolute
+									top: 0
+									left: 90px
+									z-index: 2
+									color: white
+									white-space: nowrap
+
+									@media (max-width: 550px)
+										left: 70px
+
 								.reservationGuestThumbnail
 									border-radius: 50%
 									position: relative
@@ -238,6 +253,15 @@ main > div
 									height: 50px
 									top: -15px
 									left: 10px
+
+									@media (max-width: 550px)
+										height: 40px
+										top: -10px
+
+						.bookingPrices
+							position: absolute
+							bottom: 5px
+							left: 30%
 
 				div[contenteditable='true']
 					display: inline-block

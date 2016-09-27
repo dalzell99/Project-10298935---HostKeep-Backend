@@ -1778,8 +1778,8 @@ function createCalendar() {
 	var shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	var weekDay = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
 
-	var currentDate = moment({day: 1, month: currentMonth}).subtract(moment({day: 1, month: currentMonth}).day(), 'days');
-	var lastOfMonth = moment({day: 1, month: (currentMonth + 1) % 12}).subtract(1, 'days');
+	var currentDate = moment({day: 1, month: currentMonth, year: currentYear}).subtract(moment({day: 1, month: currentMonth}).day(), 'days');
+	var lastOfMonth = moment({day: 1, month: (currentMonth + 1) % 12, year: currentYear + (currentMonth === 11 ? 1 : 0)}).subtract(1, 'days');
 	var monthName = monthNames[currentMonth];
 
 	var numDays = 0;
@@ -1798,13 +1798,13 @@ function createCalendar() {
 	html += "    <ul class='reservationCalendar'>";
 
 	weekDay.forEach(function (day) {
-		html += "    <li class='tile'>";
+		html += "    <li class='tile dayContainer'>";
 		html += "        <div class='days'>" + day + "</div>";
 		html += "    </li>";
 	});
 
 	while (lastOfMonth.diff(currentDate) >= 0 || (numDays % 7 !== 0 && lastOfMonth.diff(currentDate) < 0)) {
-		html += "    <li class='tile " + currentDate.format('YYYY-MM-DD') + "'>";
+		html += "    <li class='tile dateContainer " + currentDate.format('YYYY-MM-DD') + "'>";
 		html += "        <div class='date'>" + (currentDate.date() === 1 ? shortMonthNames[currentDate.month()] + " " : "") + currentDate.date() + "</div>";
 		html += "    </li>";
 
@@ -1889,29 +1889,73 @@ function addInfoToCalendar() {
 		if (response.substr(0, 4) !== 'fail') {
 			var middleMarker = "<div class='reservationMarker reservationMiddleMarker'></div>";
 			var endMarker = "<div class='reservationMarker reservationEndMarker'></div>";
+			var startMarker = "<div class='reservationMarker reservationStartMarker'></div>";
 
 			response = JSON.parse(response);
-			response.reservations.forEach(function (res) {
-				var startMarker = "";
-				startMarker += "<div class='reservationMarker reservationStartMarker'>";
-				startMarker += "    <div class='reservationGuestInfo'>";
-				startMarker += "        <img src='" + res.guestThumbnail + "' alt='image of the guest' class='reservationGuestThumbnail'>";
-				startMarker += "    </div>";
-				startMarker += "</div>";
+			var reservations = response.reservations;
+			var bookings = response.bookings;
+			reservations.forEach(function (res) {
+				var guestInfo = "";
+				guestInfo += "<div class='reservationGuestInfo'>";
+				guestInfo += "    <img src='" + res.guestThumbnail + "' alt='image of the guest' class='reservationGuestThumbnail'>";
+				guestInfo += "    <span>" + res.guestFirstName + "</span>";
+				guestInfo += "</div>";
 				var currentDate = moment(res.startDate);
 				var endDate = moment(res.endDate);
 				var df = "YYYY-MM-DD";
 
 				while (currentDate.diff(endDate) <= 0) {
+					// If the start of the reservation starts on a Saturday, put the
+					// image and text on the next line.
+					var marker;
 					if (currentDate.diff(moment(res.startDate)) === 0) {
-						$('.' + currentDate.format(df)).append(startMarker);
+						marker = (currentDate.day() !== 6 ? $(startMarker).append(guestInfo) : startMarker);
+						$('.' + currentDate.format(df)).append(marker);
 					} else if (currentDate.diff(endDate) === 0) {
-						$('.' + currentDate.format(df)).append(endMarker);
+						marker = (currentDate.day() === 0 && moment(currentDate).subtract(1, 'day').diff(moment(res.startDate)) === 0 ? $(endMarker).append(guestInfo) : endMarker);
+						$('.' + currentDate.format(df)).append(marker);
 					} else {
-						$('.' + currentDate.format(df)).append(middleMarker);
+						marker = (currentDate.day() === 0 && moment(currentDate).subtract(1, 'day').diff(moment(res.startDate)) === 0 ? $(middleMarker).append(guestInfo) : middleMarker);
+						$('.' + currentDate.format(df)).append(marker);
 					}
 
 					currentDate.add(1, 'days');
+				}
+			});
+
+			var middleBookingMarker = "<div class='reservationMarker reservationMiddleMarker blockedDate'></div>";
+			var endBookingMarker = "<div class='reservationMarker reservationEndMarker blockedDate'></div>";
+			bookings.forEach(function (booking, index) {
+				var startBookingMarker = "";
+				startBookingMarker += "<div class='reservationMarker reservationStartMarker blockedDate'>";
+				startBookingMarker += "    <div class='reservationGuestInfo'>";
+				startBookingMarker += "        <img src='./images/booking-calendar.png' alt='calendar icon' class='reservationGuestThumbnail'>";
+				startBookingMarker += "        <span>Direct</span>";
+				startBookingMarker += "    </div>";
+				startBookingMarker += "</div>";
+
+				if (booking.type === 'busy') {
+					if (index === bookings.length - 1) {
+						// end
+						$('.' + booking.date).append(endBookingMarker);
+					} else if (index === 0 || (bookings[index - 1].type !== 'busy' && bookings[index + 1].type === 'busy')) {
+						// start
+						$('.' + booking.date).append(startBookingMarker);
+					} else if (bookings[index - 1].type === 'busy') {
+						// middle
+						$('.' + booking.date).append(middleBookingMarker);
+					}
+				} else if (index !== 0 && bookings[index - 1].type === 'busy') {
+					$('.' + booking.date).append(endBookingMarker);
+				}
+
+				if ($("." + booking.date + " .reservationStartMarker").length === 0 &&
+					$("." + booking.date + " .reservationMiddleMarker").length === 0) {
+					var html = "";
+					html += "<div class='bookingPrices'>";
+					html += "    <span>$" + booking.price + "</span>";
+					html += "</div>";
+					$('.' + booking.date).append(html);
 				}
 			});
 		} else {
