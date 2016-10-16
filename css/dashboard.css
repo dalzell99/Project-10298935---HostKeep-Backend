@@ -302,32 +302,27 @@ main > div#properties #propertySubpage table .reservationCalendar li.tile .reser
   border-radius: 0 10px 10px 0;
 }
 
-main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestInfo span {
+main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .guestName {
   position: absolute;
-  top: 0;
-  left: 90px;
+  text-align: center;
   z-index: 2;
   color: white;
   white-space: nowrap;
+  width: 100%;
+  font-weight: bold;
 }
 
-@media (max-width: 550px) {
-  main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestInfo span {
-    left: 70px;
-  }
-}
-
-main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestInfo .reservationGuestThumbnail {
+main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestThumbnail {
   border-radius: 50%;
-  position: relative;
+  position: absolute;
   z-index: 1;
-  height: 50px;
+  height: 45px;
   top: -15px;
-  left: 10px;
+  left: 3px;
 }
 
 @media (max-width: 550px) {
-  main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestInfo .reservationGuestThumbnail {
+  main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestThumbnail {
     height: 40px;
     top: -10px;
   }
@@ -506,6 +501,112 @@ main > div#directBooking table#bookingTable th,
 main > div#directBooking table#bookingTable td {
   padding: 5px;
   text-align: left;
+}
+
+main > div#directBooking #directBookingCalendarContainer {
+  display: none;
+  position: fixed;
+  width: 70%;
+  height: 80%;
+  left: 15%;
+  top: 10%;
+  background-color: white;
+  border: 1px solid black;
+}
+
+main > div#directBooking #directBookingCalendarContainer .closeIcon {
+  position: absolute;
+  right: 20px;
+  font-size: 2.5em;
+  cursor: pointer;
+}
+
+main > div#directBooking #directBookingCalendarContainer #bookingCalendar {
+  width: 100%;
+}
+
+main > div#directBooking #directBookingCalendarContainer #bookingCalendar th {
+  text-align: center;
+  font-size: 2em;
+}
+
+main > div#directBooking #directBookingCalendarContainer .reservationCalendar {
+  margin-left: -30px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+main > div#directBooking #directBookingCalendarContainer li.tile {
+  width: calc(100% / 7);
+  display: inline-block;
+  color: black;
+  position: relative;
+  float: left;
+  border: 1px solid rgba(127, 255, 212, 0.5);
+}
+
+main > div#directBooking #directBookingCalendarContainer li.tile.dateContainer {
+  height: 11vh;
+}
+
+main > div#directBooking #directBookingCalendarContainer li.tile .date {
+  padding: 1.5% 5% 80% 6%;
+  text-align: left;
+}
+
+main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker {
+  position: absolute;
+  top: 50%;
+  left: -1px;
+  right: -1px;
+  height: 18px;
+  background-color: #12a144;
+}
+
+main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker.blockedDate {
+  background-color: darkgrey;
+}
+
+main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker.reservationStartMarker {
+  left: 25%;
+  border-radius: 10px 0 0 10px;
+}
+
+main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker.reservationEndMarker {
+  right: 85%;
+  border-radius: 0 10px 10px 0;
+}
+
+main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .guestName {
+  position: absolute;
+  text-align: center;
+  z-index: 2;
+  color: white;
+  white-space: nowrap;
+  width: 100%;
+  font-weight: bold;
+}
+
+main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .reservationGuestThumbnail {
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+  height: 45px;
+  top: -15px;
+  left: 3px;
+}
+
+@media (max-width: 550px) {
+  main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .reservationGuestThumbnail {
+    height: 40px;
+    top: -10px;
+  }
+}
+
+main > div#directBooking #directBookingCalendarContainer li.tile .bookingPrices {
+  position: absolute;
+  bottom: 5px;
+  left: 30%;
 }
 
 main > div#admin button {

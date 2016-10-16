@@ -19,13 +19,13 @@ var checkoutDatePicker;
 var currentYear;
 var currentMonth;
 var currentAirbnbID;
+var currentPropertyID;
+var calendarContainer;
+var currentDateInput;
 var currentContractExpiryDate = '';
 
 $(function() {
 	if (sessionStorage.loggedIn === 'true') {
-		currentYear = moment().get('year');
-		currentMonth = moment().get('month');
-
 		// Change the displayed section based on the url hash
 		$(window).on({
 			// Fake responsive because of my bad planning. Switches between the property layouts based on viewport width. Used when switching from property subpage to property list page.
@@ -884,7 +884,10 @@ function propertySubpage() {
 
 		// Create calendar
 		currentAirbnbID = propertyInfo.airbnbURL;
-		createCalendar(currentYear, currentMonth);
+		calendarContainer = "#calendarContainer";
+		currentYear = moment().get('year');
+		currentMonth = moment().get('month');
+		createCalendar();
 
 		$("#footer #calendarIconLink").show();
 		$("div#properties").show();
@@ -1332,11 +1335,6 @@ function directBooking() {
 	});
 	$("#directBookingAddProperty").empty().append(htmlProp);
 
-	// Change the blocked out dates in datepickers when property is changed
-	$("#directBookingAddProperty").on({
-		change: setDisabledDates
-	});
-
 	// Create booking table
 	var html = '';
 	bookingList.forEach(function(value, index, array) {
@@ -1361,19 +1359,35 @@ function directBooking() {
 	var newTableObject = $("#directBooking #bookingTable")[0];
 	sorttable.makeSortable(newTableObject);
 
-	checkinDatePicker = $("#directBookingAddCheckIn").pickadate({
-		format: 'ddd d mmm yyyy',
-		formatSubmit: 'yyyymmdd',
-		hiddenName: true
+	// Create calendar
+	currentPropertyID = $("#directBookingAddProperty").val();
+	calendarContainer = "#directBookingCalendarContainer .content";
+	currentYear = moment().get('year');
+	currentMonth = moment().get('month');
+	createCalendar();
+
+	$("#directBookingAddProperty").on({
+		change: function () {
+			currentPropertyID = $("#directBookingAddProperty").val();
+			currentYear = moment().get('year');
+			currentMonth = moment().get('month');
+			createCalendar();
+		}
 	});
 
-	checkoutDatePicker = $("#directBookingAddCheckOut").pickadate({
-		format: 'ddd d mmm yyyy',
-		formatSubmit: 'yyyymmdd',
-		hiddenName: true
+	$("#directBookingAddCheckIn").on({
+		click: function () {
+			currentDateInput = 'checkin';
+			$("#directBookingCalendarContainer").show();
+		}
 	});
 
-	setDisabledDates();
+	$("#directBookingAddCheckOut").on({
+		click: function () {
+			currentDateInput = 'checkout';
+			$("#directBookingCalendarContainer").show();
+		}
+	});
 
 	$("#directBookingAddInvoiceYes").on({
 		click: function () {
@@ -1410,8 +1424,8 @@ function directBooking() {
 					guestName: $("#directBookingAddGuestName").val(),
 					guestMobile: $("#directBookingAddGuestMobile").val(),
 					guestEmail: $("#directBookingAddGuestEmail").val(),
-					guestCheckIn: $("#directBooking input[type='hidden']:eq(0)").val(), // The datepicker dates are stored in a hidden input. This gets the first one
-					guestCheckOut: $("#directBooking input[type='hidden']:eq(1)").val(), // and this one gets the second hidden input
+					guestCheckIn: $("#directBookingAddCheckIn").prop('date'),
+					guestCheckOut: $("#directBookingAddCheckOut").prop('date'),
 					invoiced: invoice,
 					nightlyRate: $("#directBookingNightlyRate").val(),
 					cleanUp: cleanUp,
@@ -1445,8 +1459,8 @@ function directBooking() {
 							'guestName': $("#directBookingAddGuestName").val(),
 							'guestMobile': $("#directBookingAddGuestMobile").val(),
 							'guestEmail': $("#directBookingAddGuestEmail").val(),
-							'guestCheckIn': $("#directBooking input[type='hidden']:eq(0)").val(),
-							'guestCheckOut': $("#directBooking input[type='hidden']:eq(1)").val(),
+							'guestCheckIn': $("#directBookingAddCheckIn").prop('date'),
+							'guestCheckOut': $("#directBookingAddCheckOut").prop('date'),
 							'invoiced': invoice,
 							'nightlyRate': $("#directBookingNightlyRate").val(),
 							'cleanUp': cleanUp,
@@ -1457,8 +1471,8 @@ function directBooking() {
 						$("#directBookingAddGuestName").val('');
 						$("#directBookingAddGuestMobile").val('');
 						$("#directBookingAddGuestEmail").val('');
-						checkinDatePicker.pickadate('clear');
-						checkoutDatePicker.pickadate('clear');
+						$("#directBookingAddCheckIn").val('');
+						$("#directBookingAddCheckOut").val('');
 						$("#directBookingAddInvoice").prop('checked', false);
 						$("#directBookingAddNotes").val('');
 						$("#directBookingNightlyRate").val('');
@@ -1542,6 +1556,21 @@ function deleteBooking(id) {
 	}).fail(function (request, textStatus, errorThrown) {
 		//displayMessage('error', "Error: Something went wrong with  AJAX POST");
 	});
+}
+
+function isDirectBooking() {
+	return $("nav .directBooking").hasClass("active");
+}
+
+function setDateInput(date) {
+	$("#directBookingCalendarContainer").hide();
+	if(currentDateInput === 'checkin') {
+		$("#directBookingAddCheckIn").val(moment(date).format("ddd Do MMM YYYY"));
+		$("#directBookingAddCheckIn").prop('date', date);
+	} else {
+		$("#directBookingAddCheckOut").val(moment(date).format("ddd Do MMM YYYY"));
+		$("#directBookingAddCheckOut").prop('date', date);
+	}
 }
 
 function admin() {
@@ -1790,7 +1819,7 @@ function createCalendar() {
 	html += "        <tr>";
 	html += "            <th colspan='7'>";
 	html += "                <img src='./images/calendar-previous.png' alt='Previous Month' onclick='showPreviousMonth()'>";
-	html += monthName + " " + currentYear;
+	html += "                <span>    " + monthName + " " + currentYear + "    </span>";
 	html += "                <img src='./images/calendar-next.png' alt='Next Month' onclick='showNextMonth()'>";
 	html += "            </th>";
 	html += "        </tr>";
@@ -1814,92 +1843,30 @@ function createCalendar() {
 	html += "    </ul>";
 	html += "</div>";
 
-	$("#calendarContainer").html(html);
+	$(calendarContainer).html(html);
 
 	if (currentAirbnbID !== '') {
 		addInfoToCalendar();
 	}
 }
 
-// function createCalendar() {
-// 	var daysInMonth = [31, currentYear % 4 === 0 ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-// 	var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-// 	var weekDay = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
-//
-// 	// create instance of first day of month, and extract the day on which it occurs
-// 	var firstDay = new Date(currentYear, currentMonth, 1).getDay() + 1;
-//
-// 	// number of days in current month
-// 	var lastDate = daysInMonth[currentMonth];
-//
-// 	// Name of month
-// 	var monthName = monthNames[currentMonth];
-//
-// 	// create basic table structure
-// 	var html = "";
-// 	html += "<table id='bookingCalendar'>";
-// 	html += "    <tr>";
-// 	html += "        <th colspan='7'>";
-// 	html += "            <img src='./images/calendar-previous.png' alt='Previous Month' onclick='showPreviousMonth()'>";
-// 	html += monthName + " " + currentYear;
-// 	html += "            <img src='./images/calendar-next.png' alt='Next Month' onclick='showNextMonth()'>";
-// 	html += "        </th>";
-// 	html += "    </tr>";
-// 	html += "    <tr>";
-// 	for (var dayNum = 0; dayNum < 7; dayNum += 1) {
-// 		html +=  "    <td>" + weekDay[dayNum] + "</td>";
-// 	}
-// 	html += "    </tr>";
-//
-// 	// declaration and initialization of two variables to help with tables
-// 	var dateOfMonth = 1;
-// 	var currentCell = 1;
-//
-// 	for (var row = 0; row < Math.ceil((lastDate + firstDay - 1) / 7); row += 1) {
-// 		html += "<tr>";
-// 		for (var dayOfWeek = 0; dayOfWeek < 7; dayOfWeek += 1) {
-// 			if (dateOfMonth > lastDate) {
-// 				break;
-// 			}
-//
-// 			if (currentCell < firstDay) {
-// 				html += "<td></td>";
-// 				currentCell += 1;
-// 			} else {
-// 				html += "<td class='" + currentYear + "-" + pad(currentMonth + 1, 2) + "-" + pad(dateOfMonth, 2) + "'><div><span>" + dateOfMonth + "</span></div></td>";
-// 				dateOfMonth += 1;
-// 			}
-// 		}
-// 		html += "</tr>";
-// 	}
-//
-// 	html += "</table>";
-//
-// 	$("#calendarContainer").html(html);
-//
-// 	if (currentAirbnbID !== '') {
-// 		addInfoToCalendar();
-// 	}
-// }
-
 function addInfoToCalendar() {
 	$.get("./php/bookings/getreservations.php", {
-		airbnbID: currentAirbnbID
+		airbnbID: currentAirbnbID,
+		propertyID: currentPropertyID
 	}, function(response) {
 		if (response.substr(0, 4) !== 'fail') {
-			var middleMarker = "<div class='reservationMarker reservationMiddleMarker'></div>";
 			var endMarker = "<div class='reservationMarker reservationEndMarker'></div>";
-			var startMarker = "<div class='reservationMarker reservationStartMarker'></div>";
 
 			response = JSON.parse(response);
 			var reservations = response.reservations;
 			var bookings = response.bookings;
 			reservations.forEach(function (res) {
-				var guestInfo = "";
-				guestInfo += "<div class='reservationGuestInfo'>";
-				guestInfo += "    <img src='" + res.guestThumbnail + "' alt='image of the guest' class='reservationGuestThumbnail'>";
-				guestInfo += "    <span>" + res.guestFirstName + "</span>";
-				guestInfo += "</div>";
+				var startMarker = "";
+				startMarker += "<div class='reservationMarker reservationStartMarker'>";
+				startMarker += "    <img src='" + res.guestThumbnail + "' alt='image of the guest' class='reservationGuestThumbnail'>";
+				startMarker += "</div>";
+
 				var currentDate = moment(res.startDate);
 				var endDate = moment(res.endDate);
 				var df = "YYYY-MM-DD";
@@ -1907,16 +1874,23 @@ function addInfoToCalendar() {
 				while (currentDate.diff(endDate) <= 0) {
 					// If the start of the reservation starts on a Saturday, put the
 					// image and text on the next line.
-					var marker;
 					if (currentDate.diff(moment(res.startDate)) === 0) {
-						marker = (currentDate.day() !== 6 ? $(startMarker).append(guestInfo) : startMarker);
-						$('.' + currentDate.format(df)).append(marker);
+						// Start
+						$('.' + currentDate.format(df)).append(startMarker);
 					} else if (currentDate.diff(endDate) === 0) {
-						marker = (currentDate.day() === 0 && moment(currentDate).subtract(1, 'day').diff(moment(res.startDate)) === 0 ? $(endMarker).append(guestInfo) : endMarker);
-						$('.' + currentDate.format(df)).append(marker);
+						// End
+						$('.' + currentDate.format(df)).append(endMarker);
 					} else {
-						marker = (currentDate.day() === 0 && moment(currentDate).subtract(1, 'day').diff(moment(res.startDate)) === 0 ? $(middleMarker).append(guestInfo) : middleMarker);
-						$('.' + currentDate.format(df)).append(marker);
+						// Middle
+						var middleMarker = "";
+						middleMarker += "<div class='reservationMarker reservationMiddleMarker'>";
+						// If yesterday was the ckeckin day, add the guests name
+						// to marker
+						if (moment(currentDate).subtract(1, 'days').diff(moment(res.startDate)) === 0) {
+							middleMarker += "<div class='guestName'>" + res.guestFirstName + "</div>";
+						}
+						middleMarker += "</div>";
+						$('.' + currentDate.format(df)).append(middleMarker);
 					}
 
 					currentDate.add(1, 'days');
@@ -1925,6 +1899,8 @@ function addInfoToCalendar() {
 
 			var middleBookingMarker = "<div class='reservationMarker reservationMiddleMarker blockedDate'></div>";
 			var endBookingMarker = "<div class='reservationMarker reservationEndMarker blockedDate'></div>";
+			var db = isDirectBooking();
+
 			bookings.forEach(function (booking, index) {
 				var startBookingMarker = "";
 				startBookingMarker += "<div class='reservationMarker reservationStartMarker blockedDate'>";
@@ -1956,6 +1932,15 @@ function addInfoToCalendar() {
 					html += "    <span>$" + booking.price + "</span>";
 					html += "</div>";
 					$('.' + booking.date).append(html);
+
+					if (db) {
+						var date = booking.date;
+						$('.' + booking.date).on({
+							click: function () {
+								setDateInput(date);
+							}
+						})
+					}
 				}
 			});
 		} else {
