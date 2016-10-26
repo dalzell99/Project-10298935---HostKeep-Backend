@@ -409,6 +409,14 @@ main > div
 			background-color: white
 			border: 1px solid black
 
+			@media(max-width: 768px)
+				width: 90%
+				left: 5%
+
+			@media(max-width: 550px)
+				width: 100%
+				left: 0
+
 			.closeIcon
 				position: absolute
 				right: 20px
@@ -470,6 +478,9 @@ main > div
 						width: 100%
 						font-weight: bold
 
+						@media (max-width: 550px)
+							font-size: .8em
+
 					.reservationGuestThumbnail
 						border-radius: 50%
 						position: absolute
@@ -479,7 +490,7 @@ main > div
 						left: 3px
 
 						@media (max-width: 550px)
-							height: 40px
+							height: 35px
 							top: -10px
 
 				.bookingPrices

@@ -1925,13 +1925,14 @@ function addInfoToCalendar() {
 					$('.' + booking.date).append(endBookingMarker);
 				}
 
-				if ($("." + booking.date + " .reservationStartMarker").length === 0 &&
-					$("." + booking.date + " .reservationMiddleMarker").length === 0) {
-					var html = "";
-					html += "<div class='bookingPrices'>";
-					html += "    <span>$" + booking.price + "</span>";
-					html += "</div>";
-					$('.' + booking.date).append(html);
+				if ($("." + booking.date + " .reservationMiddleMarker").length === 0) {
+					if ($("." + booking.date + " .reservationStartMarker").length === 0) {
+						var html = "";
+						html += "<div class='bookingPrices'>";
+						html += "    <span>$" + booking.price + "</span>";
+						html += "</div>";
+						$('.' + booking.date).append(html);
+					}
 
 					if (db) {
 						var date = booking.date;

@@ -514,6 +514,20 @@ main > div#directBooking #directBookingCalendarContainer {
   border: 1px solid black;
 }
 
+@media (max-width: 768px) {
+  main > div#directBooking #directBookingCalendarContainer {
+    width: 90%;
+    left: 5%;
+  }
+}
+
+@media (max-width: 550px) {
+  main > div#directBooking #directBookingCalendarContainer {
+    width: 100%;
+    left: 0;
+  }
+}
+
 main > div#directBooking #directBookingCalendarContainer .closeIcon {
   position: absolute;
   right: 20px;
@@ -587,6 +601,12 @@ main > div#directBooking #directBookingCalendarContainer li.tile .reservationMar
   font-weight: bold;
 }
 
+@media (max-width: 550px) {
+  main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .guestName {
+    font-size: .8em;
+  }
+}
+
 main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .reservationGuestThumbnail {
   border-radius: 50%;
   position: absolute;
@@ -598,7 +618,7 @@ main > div#directBooking #directBookingCalendarContainer li.tile .reservationMar
 
 @media (max-width: 550px) {
   main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .reservationGuestThumbnail {
-    height: 40px;
+    height: 35px;
     top: -10px;
   }
 }
