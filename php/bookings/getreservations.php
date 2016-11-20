@@ -18,7 +18,7 @@ if ($_GET['airbnbID']) {
 }
 
 $sqlBooking = "SELECT * FROM Bookings WHERE airbnbID = $airbnbID";
-$sqlReservation = "SELECT * FROM Reservations WHERE propertyID = '$propertyID'";
+$sqlReservation = "SELECT * FROM Reservations WHERE propertyID = '$propertyID' AND status = 'accepted'";
 if (($resultBooking = mysqli_query($con, $sqlBooking)) && ($resultReservation = mysqli_query($con, $sqlReservation))) {
 	$response['bookings'] = [];
 	while ($rowBooking = mysqli_fetch_assoc($resultBooking)) {
