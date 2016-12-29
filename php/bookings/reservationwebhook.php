@@ -11,29 +11,37 @@ if (mysqli_connect_errno()) {
 
 $input = file_get_contents('php://input');
 
-$reservation = json_decode($input);
-$listing = $reservation->listing;
-$guest = $reservation->guest;
+// sendEmail('dalzell99@hotmail.com', $noReplyEmail, 'Reservation Webhook', $input . "<br /><br />REPLACE INTO Reservations (groupID, propertyID, startDate, endDate, guestFullName, guestFirstName, guestImage, guestThumbnail, numNights, numGuests, totalCost, status) VALUES ('$groupID', '$propertyID', '$startDate', '$endDate', '$guestFullName', '$guestFirstName', '$guestImage', '$guestThumbnail', $numNights, $numGuests, $totalCost, '$status')");
 
-$res = mysqli_query($con, "SELECT propertyID FROM Properties WHERE airbnbURL = '{$listing->id}'");
-$propertyID = mysqli_fetch_assoc($res)['propertyID'];
+try {
+	$reservation = json_decode($input);
+	$listing = $reservation->listing;
+	$guest = $reservation->guest;
 
-$groupID = $reservation->code;
-$startDate = $reservation->start_date;
-$numNights = $reservation->nights;
-$endDate = $reservation->end_date;
-$numGuests = $reservation->guests;
-$totalCost = $reservation->total_price;
-$status = $reservation->status;
+	$res = mysqli_query($con, "SELECT propertyID FROM Properties WHERE airbnbURL = '{$listing->id}'");
+	$propertyID = mysqli_fetch_assoc($res)['propertyID'];
 
-$guestFirstName = $guest->first_name;
-$guestFullName = $guestFirstName . ' ' . $guest->last_name;
-$guestImage = $guest->picture_url;
-$guestThumbnail = $guest->picture_url;
+	$groupID = $reservation->code;
+	$startDate = $reservation->start_date;
+	$numNights = $reservation->nights;
+	$endDate = $reservation->end_date;
+	$numGuests = $reservation->guests;
+	$totalCost = $reservation->total_price;
+	$status = $reservation->status;
 
-mysqli_query($con, "REPLACE INTO Reservations (groupID, propertyID, startDate, endDate, guestFullName, guestFirstName, guestImage, guestThumbnail, numNights, numGuests, totalCost, status) VALUES ('$groupID', '$propertyID', '$startDate', '$endDate', '$guestFullName', '$guestFirstName', '$guestImage', '$guestThumbnail', $numNights, $numGuests, $totalCost, '$status')");
+	$guestFirstName = mysqli_real_escape_string($con, $guest->first_name);
+	$guestFullName = $guestFirstName . ' ' . mysqli_real_escape_string($con, $guest->last_name);
+	$guestImage = mysqli_real_escape_string($con, $guest->picture_url);
+	$guestThumbnail = mysqli_real_escape_string($con, $guest->picture_url);
+
+	mysqli_query($con, "REPLACE INTO Reservations (groupID, propertyID, startDate, endDate, guestFullName, guestFirstName, guestImage, guestThumbnail, numNights, numGuests, totalCost, status) VALUES ('$groupID', '$propertyID', '$startDate', '$endDate', '$guestFullName', '$guestFirstName', '$guestImage', '$guestThumbnail', $numNights, $numGuests, $totalCost, '$status')");
+
+	$error = false;
+} catch(Exception $e) {
+	$error = $e->getMessage();
+}
+
+sendEmail('dalzell99@hotmail.com', $noReplyEmail, 'Reservation Webhook', $input . "<br /><br />REPLACE INTO Reservations (groupID, propertyID, startDate, endDate, guestFullName, guestFirstName, guestImage, guestThumbnail, numNights, numGuests, totalCost, status) VALUES ('$groupID', '$propertyID', '$startDate', '$endDate', '$guestFullName', '$guestFirstName', '$guestImage', '$guestThumbnail', $numNights, $numGuests, $totalCost, '$status')" . ($error ? "<br /><br />Error: $error" : ""));
 
 mysqli_close($con);
-
-sendEmail('dalzell99@hotmail.com', $noReplyEmail, 'Reservation Webhook', $input . "<br /><br />REPLACE INTO Reservations (groupID, propertyID, startDate, endDate, guestFullName, guestFirstName, guestImage, guestThumbnail, numNights, numGuests, totalCost, status) VALUES ('$groupID', '$propertyID', '$startDate', '$endDate', '$guestFullName', '$guestFirstName', '$guestImage', '$guestThumbnail', $numNights, $numGuests, $totalCost, '$status')");
 ?>

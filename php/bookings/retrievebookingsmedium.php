@@ -8,7 +8,7 @@ if (mysqli_connect_errno()) {
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-// Get all properies
+// Get all properties
 $r = mysqli_query($con, "SELECT 1 FROM Properties");
 $numRows = mysqli_num_rows($r);
 $limit = floor($numRows / 6);
@@ -20,8 +20,6 @@ if (intval(date('h')) === 12) {
 }
 
 $result = mysqli_query($con, "SELECT airbnbURL FROM Properties ORDER BY propertyID LIMIT $offset, $limit");
-
-$string = date('h') . ": SELECT airbnbURL FROM Properties ORDER BY propertyID LIMIT $offset, $limit<br />";
 
 while ($row = mysqli_fetch_assoc($result)) {
 	if ($row['airbnbURL']) {
@@ -42,7 +40,6 @@ while ($row = mysqli_fetch_assoc($result)) {
 			foreach ($response->calendar_days as $day) {
 				$available = ($day->available ? 'available' : 'booked');
 				mysqli_query($con, "REPLACE INTO Bookings VALUES ({$row['airbnbURL']}, '$day->date', '$available', {$day->price->native_price})");
-				$string .= "REPLACE INTO Bookings VALUES ({$row['airbnbURL']}, '$day->date', '$available', {$day->price->native_price})<br />";
 			}
 		}
 	}

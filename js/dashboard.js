@@ -1807,7 +1807,7 @@ function createCalendar() {
 	var shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	var weekDay = ["Sun", "Mon", "Tues", "Wed", "Thu", "Fri", "Sat"];
 
-	var currentDate = moment({day: 1, month: currentMonth, year: currentYear}).subtract(moment({day: 1, month: currentMonth}).day(), 'days');
+	var currentDate = moment({day: 1, month: currentMonth, year: currentYear}).subtract(moment({day: 1, month: currentMonth, year: currentYear}).day(), 'days');
 	var lastOfMonth = moment({day: 1, month: (currentMonth + 1) % 12, year: currentYear + (currentMonth === 11 ? 1 : 0)}).subtract(1, 'days');
 	var monthName = monthNames[currentMonth];
 
