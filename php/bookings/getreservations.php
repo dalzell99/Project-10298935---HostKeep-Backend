@@ -7,7 +7,7 @@ if (mysqli_connect_errno()) {
 	echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-if (empty($_GET['airbnbID'])) {
+if (!empty($_GET['airbnbID'])) {
 	$airbnbID = $_GET['airbnbID'];
 	$resultProperty = mysqli_query($con, "SELECT propertyID FROM Properties WHERE airbnbURL = '$airbnbID'");
 	$propertyID = mysqli_fetch_assoc($resultProperty)['propertyID'];

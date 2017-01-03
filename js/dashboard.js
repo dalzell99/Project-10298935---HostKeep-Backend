@@ -626,6 +626,8 @@ function propertySubpage() {
 		// html += "                </div>";
 		html += "                <div id='calendarContainer'></div>";
 		html += "            </td>";
+		html += "        <tr>";
+		html += "            <td>Booking values are gross of cleaning fee, Airbnb fees, and management cost, so should be considered representative only. Please refer to the property End of Month report for confirmed values.</td>";
 		html += "        </tr>";
 		html += "        <tr>";
 		html += "            <td>";
@@ -1884,10 +1886,10 @@ function addInfoToCalendar() {
 						// Middle
 						var middleMarker = "";
 						middleMarker += "<div class='reservationMarker reservationMiddleMarker'>";
-						// If yesterday was the ckeckin day, add the guests name
+						// If yesterday was the checkin day, add the guests name
 						// to marker
 						if (moment(currentDate).subtract(1, 'days').diff(moment(res.startDate)) === 0) {
-							middleMarker += "<div class='guestName'>" + res.guestFirstName + "</div>";
+							middleMarker += "<div class='guestName'>" + res.guestFirstName + " - $" + res.netCost + "</div>";
 						}
 						middleMarker += "</div>";
 						$('.' + currentDate.format(df)).append(middleMarker);

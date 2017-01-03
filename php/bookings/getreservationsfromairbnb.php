@@ -11,7 +11,7 @@ if (mysqli_connect_errno()) {
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-	CURLOPT_URL => "https://us.smartbnb.io/api/calendar?user_id=5383441&secret=fJDGMEdLPwCFWDJisYNxSqwPnmaxXCzo&start_date=2016-11-25&end_date=2016-12-15&format=full&listing_id=8279484",
+	CURLOPT_URL => "https://us.smartbnb.io/api/calendar?user_id=5383441&secret=fJDGMEdLPwCFWDJisYNxSqwPnmaxXCzo&start_date=2016-12-02&end_date=2016-12-02&format=full&listing_id=8279484",
 	// CURLOPT_URL => "https://us.smartbnb.io/api/calendar?user_id=5383441&secret=fJDGMEdLPwCFWDJisYNxSqwPnmaxXCzo&format=full&listing_id=11419346&start_date=2016-10-13&end_date=2016-10-15",
 	CURLOPT_RETURNTRANSFER => true
 ));
