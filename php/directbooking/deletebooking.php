@@ -17,11 +17,12 @@ if ($result = mysqli_query($con, $sqlBooking)) {
 	while (strtotime($row['guestCheckout']) >= $currentDate) {
 		$date = date('Y-m-d', $currentDate);
 		mysqli_query($con,
-			"REPLACE INTO Bookings VALUES ((
+			"INSERT INTO Bookings VALUES ((
 				SELECT airbnbURL
 				FROM Properties
 				WHERE propertyID = '" . $row['propertyID'] . "'
-			), '$date', 'available')"
+			), '$date', 'available', 0)
+			ON DUPLICATE KEY UPDATE availability = 'available'"
 		);
 		$currentDate = strtotime("+1 day", $currentDate);
 	}

@@ -19,15 +19,17 @@ if (intval(date('h')) === 12) {
 	$limit = 99999;
 }
 
-$result = mysqli_query($con, "SELECT airbnbURL FROM Properties ORDER BY propertyID LIMIT $offset, $limit");
+$result = mysqli_query($con, "SELECT propertyID, airbnbURL, name FROM Properties ORDER BY propertyID LIMIT $offset, " . ($limit + 1));
 
+$sql = "SQL: SELECT propertyID, airbnbURL, name FROM Properties ORDER BY propertyID LIMIT $offset, " . ($limit + 1) . "<br />";
 while ($row = mysqli_fetch_assoc($result)) {
 	if ($row['airbnbURL']) {
+		$sql .= $row['propertyID'] . " - " . $row['name'] . "<br />";
 		$curl = curl_init();
 
 		curl_setopt_array($curl, array(
 			CURLOPT_URL => "https://us.smartbnb.io/api/calendar?user_id=5383441&secret=fJDGMEdLPwCFWDJisYNxSqwPnmaxXCzo&format=medium&listing_id=" . $row['airbnbURL'],
-			// CURLOPT_URL => "https://us.smartbnb.io/api/calendar?user_id=5383441&secret=fJDGMEdLPwCFWDJisYNxSqwPnmaxXCzo&format=medium&listing_id=11419346&start_date=2016-11-13&end_date=2016-11-15",
+			// CURLOPT_URL => "https://us.smartbnb.io/api/calendar?user_id=5383441&secret=fJDGMEdLPwCFWDJisYNxSqwPnmaxXCzo&format=medium&listing_id=10436414&start_date=2017-02-01&end_date=2017-04-01",
 			CURLOPT_RETURNTRANSFER => true
 		));
 
@@ -39,11 +41,17 @@ while ($row = mysqli_fetch_assoc($result)) {
 		if (isset($response->calendar_days)) {
 			foreach ($response->calendar_days as $day) {
 				$available = ($day->available ? 'available' : 'booked');
-				mysqli_query($con, "REPLACE INTO Bookings VALUES ({$row['airbnbURL']}, '$day->date', '$available', {$day->price->native_price})");
+				if (!mysqli_query($con, "REPLACE INTO Bookings VALUES ({$row['airbnbURL']}, '$day->date', '$available', {$day->price->native_price})")) {
+					$sql .= "FAIL: ";
+				}
+				// $sql .= "REPLACE INTO Bookings VALUES ({$row['airbnbURL']}, '$day->date', '$available', {$day->price->native_price})<br />";
 			}
 		}
 	}
 }
+
+sendEmail('dalzell99@hotmail.com', $noReplyEmail, 'Bookings', $sql);
+echo $sql;
 
 mysqli_close($con);
 ?>

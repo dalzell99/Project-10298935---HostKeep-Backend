@@ -1,682 +1,422 @@
 header nav {
-  display: block;
-}
+  display: block; }
 
 header > :first-child button {
-  display: block;
-}
+  display: block; }
 
 header > :first-child select {
   color: initial;
   margin-top: 5px;
   padding: 5px;
-  width: 85%;
-}
+  width: 85%; }
 
 main > div {
   display: none;
-  margin-top: 10px;
-}
-
-main > div#welcome .proposalUser {
-  display: none;
-}
-
-main > div#profile .profileSeparator {
-  height: 30px;
-}
-
-main > div#profile .profileSeparator div {
-  border-bottom: 1px solid lightgrey;
-}
-
-main > div#profile table {
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-main > div#profile table th:not(:nth-child(4)),
-main > div#profile table td:not(:nth-child(4)) {
-  width: 23%;
-}
-
-@media (max-width: 992px) {
-  main > div#profile table th:not(:nth-child(4)),
-  main > div#profile table td:not(:nth-child(4)) {
-    width: 33.33%;
-  }
-}
-
-main > div#profile table th:nth-child(4),
-main > div#profile table td:nth-child(4) {
-  width: 31%;
-}
-
-@media (max-width: 992px) {
-  main > div#profile table th:nth-child(4),
-  main > div#profile table td:nth-child(4) {
-    display: none;
-  }
-}
-
-main > div#properties #propertiesAdd,
-main > div#properties #propertiesAddNewProperty,
-main > div#properties #propertyMobile {
-  display: none;
-}
-
-@media (max-width: 600px) {
-  main > div#properties #propertyMobile {
-    display: block;
-  }
-  main > div#properties #propertyTable {
-    display: none;
-  }
-}
-
-main > div#properties table#propertyTable {
-  width: 100%;
-}
-
-main > div#properties table#propertyTable th {
-  font-size: 0.9em;
-  cursor: pointer;
-}
-
-main > div#properties table#propertyTable th,
-main > div#properties table#propertyTable td {
-  padding: 5px;
-  text-align: left;
-  cursor: pointer;
-}
-
-main > div#properties table#propertyTable th:nth-child(1),
-main > div#properties table#propertyTable td:nth-child(1) {
-  width: 18%;
-}
-
-main > div#properties table#propertyTable th:nth-child(1) img,
-main > div#properties table#propertyTable td:nth-child(1) img {
-  width: 100%;
-}
-
-main > div#properties table#propertyTable th:nth-child(3),
-main > div#properties table#propertyTable td:nth-child(3) {
-  width: 12.5%;
-}
-
-main > div#properties table#propertyTable th:nth-child(4),
-main > div#properties table#propertyTable td:nth-child(4) {
-  width: 20%;
-}
-
-main > div#properties table#propertyTable th:nth-child(5),
-main > div#properties table#propertyTable td:nth-child(5) {
-  width: 40%;
-}
-
-main > div#properties table#propertyTable th:nth-child(7) > div,
-main > div#properties table#propertyTable td:nth-child(7) > div {
-  border: 1px solid #00b7a6;
-}
-
-main > div#properties table#propertyTable img {
-  width: 200px;
-}
-
-main > div#properties table#propertyMobile {
-  width: 100%;
-  font-size: .8em;
-}
-
-main > div#properties table#propertyMobile tr:not(:first-child) {
-  border-top: 1px solid lightgrey;
-}
-
-main > div#properties table#propertyMobile td {
-  padding: 15px 5px;
-  text-align: left;
-  cursor: pointer;
-}
-
-main > div#properties table#propertyMobile td:nth-child(1) {
-  width: 40%;
-}
-
-main > div#properties table#propertyMobile td:nth-child(1) img {
-  width: 100%;
-}
-
-main > div#properties table#propertyMobile td:nth-child(3) {
-  width: 60%;
-}
-
-main > div#properties table#propertyMobile td:nth-child(3) > div:nth-child(2) {
-  margin-bottom: 1em;
-}
-
-main > div#properties table#propertyMobile td:nth-child(3) > div:nth-child(3) div {
-  border: 1px solid #00b7a6;
-  width: 20%;
-  display: inline-block;
-}
-
-main > div#properties #propertySubpage .calendar-container {
-  position: relative;
-  padding-bottom: 100%;
-  height: 0;
-  overflow: hidden;
-}
-
-@media (max-width: 992px) {
-  main > div#properties #propertySubpage .calendar-container {
-    padding-bottom: 50%;
-  }
-}
-
-@media (min-width: 1200px) {
-  main > div#properties #propertySubpage .calendar-container {
-    padding-bottom: 75%;
-  }
-}
-
-@media (max-width: 650px) {
-  main > div#properties #propertySubpage .calendar-container {
-    padding-bottom: 75%;
-  }
-}
-
-main > div#properties #propertySubpage .calendar-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-main > div#properties #propertySubpage img.propertyImage {
-  width: 100%;
-  cursor: pointer;
-}
-
-main > div#properties #propertySubpage img.airbnbButtonImage, main > div#properties #propertySubpage img.makeBookingButtonImage {
-  margin-right: 5px;
-  width: 24px;
-}
-
-main > div#properties #propertySubpage .propertySubpageSeparator {
-  height: 2px;
-  border-bottom: 1px solid lightgrey;
-}
-
-main > div#properties #propertySubpage .propertySubpageLinkButtons {
-  width: 49%;
-  padding: 5px 0;
-}
-
-main > div#properties #propertySubpage #propertySubpageMakeBookingButton {
-  background-color: #668cd9;
-}
-
-main > div#properties #propertySubpage .row {
-  border-bottom: 1px solid lightgrey;
-}
-
-main > div#properties #propertySubpage .row:last-child {
-  border: 0;
-}
-
-main > div#properties #propertySubpage .row > div {
-  margin: 15px 0;
-}
-
-main > div#properties #propertySubpage #propertySubpagePropertyStatus {
-  width: 120px;
-}
-
-main > div#properties #propertySubpage #propertySubpageCommencementFeeReceivedYes,
-main > div#properties #propertySubpage #propertySubpageCommencementFeeReceivedNo {
-  width: 30px;
-}
-
-main > div#properties #propertySubpage #infoContainer table td:first-child {
-  width: 130px;
-}
-
-main > div#properties #propertySubpage table {
-  width: 100%;
-}
-
-main > div#properties #propertySubpage table td, main > div#properties #propertySubpage table th {
-  padding: 5px 0;
-}
-
-main > div#properties #propertySubpage table#propertySubpageImageAndButton td {
-  text-align: center;
-  color: white;
-}
-
-main > div#properties #propertySubpage table#bookingCalendar th {
-  color: black;
-  text-align: center;
-}
-
-main > div#properties #propertySubpage table .reservationCalendar {
-  padding: 0;
-}
-
-main > div#properties #propertySubpage table .reservationCalendar li.tile {
-  width: calc(100% / 7);
-  display: inline-block;
-  color: black;
-  position: relative;
-  float: left;
-  border: 1px solid rgba(127, 255, 212, 0.5);
-}
-
-main > div#properties #propertySubpage table .reservationCalendar li.tile .date {
-  padding: 1.5% 5% 80% 6%;
-  text-align: left;
-}
-
-main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker {
-  position: absolute;
-  top: 50%;
-  left: -1px;
-  right: -1px;
-  height: 18px;
-  background-color: #12a144;
-}
-
-main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker.blockedDate {
-  background-color: darkgrey;
-}
-
-main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker.reservationStartMarker {
-  left: 25%;
-  border-radius: 10px 0 0 10px;
-}
-
-main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker.reservationEndMarker {
-  right: 85%;
-  border-radius: 0 10px 10px 0;
-}
-
-main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .guestName {
-  position: absolute;
-  text-align: center;
-  z-index: 2;
-  color: white;
-  white-space: nowrap;
-  width: 100%;
-  font-weight: bold;
-}
-
-main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestThumbnail {
-  border-radius: 50%;
-  position: absolute;
-  z-index: 1;
-  height: 45px;
-  top: -15px;
-  left: 3px;
-}
-
-@media (max-width: 550px) {
-  main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestThumbnail {
-    height: 40px;
-    top: -10px;
-  }
-}
-
-main > div#properties #propertySubpage table .reservationCalendar li.tile .bookingPrices {
-  position: absolute;
-  bottom: 5px;
-  left: 30%;
-}
-
-main > div#properties #propertySubpage table div[contenteditable='true'] {
-  display: inline-block;
-  width: 70px;
-}
-
-main > div#properties #propertySubpage table [contenteditable='true'] {
-  padding-left: 2px;
-  border: 1px solid #00b7a6;
-}
-
-main > div#properties #propertySubpage iframe .nav-table td:nth-child(5), main > div#properties #propertySubpage iframe .nav-table td:nth-child(6), main > div#properties #propertySubpage iframe .nav-table td.calendar-nav,
-main > div#properties #propertySubpage iframe .nav-table td.date-nav-buttons .today-button {
-  display: none;
-}
-
-main > div#documents #documentsAdd,
-main > div#documents #documentsAddNewDocument,
-main > div#documents #documentsAddFilename {
-  display: none;
-}
-
-main > div#documents #orText {
-  text-align: left;
-  font-size: 2em;
-  font-weight: bold;
-}
-
-main > div#documents .nav.nav-tabs {
-  margin-top: 20px;
-}
-
-main > div#documents table {
-  width: 100%;
-}
-
-main > div#documents table th {
-  font-size: 0.9em;
-  cursor: pointer;
-}
-
-main > div#documents table th,
-main > div#documents table td {
-  padding: 5px;
-  text-align: left;
-}
-
-main > div#documents table th:nth-child(1),
-main > div#documents table td:nth-child(1) {
-  width: 26%;
-}
-
-main > div#documents table th:nth-child(2), main > div#documents table th:nth-child(3),
-main > div#documents table td:nth-child(2),
-main > div#documents table td:nth-child(3) {
-  width: 8%;
-}
-
-main > div#documents table th:nth-child(4), main > div#documents table th:nth-child(5),
-main > div#documents table td:nth-child(4),
-main > div#documents table td:nth-child(5) {
-  width: 10%;
-  text-align: left;
-}
-
-main > div#documents table th:nth-child(4) img, main > div#documents table th:nth-child(5) img,
-main > div#documents table td:nth-child(4) img,
-main > div#documents table td:nth-child(5) img {
-  cursor: pointer;
-}
-
-main > div#documents table th:nth-child(6),
-main > div#documents table td:nth-child(6) {
-  width: 10%;
-}
-
-@media (max-width: 992px) {
-  main > div#documents table th:nth-child(6),
-  main > div#documents table td:nth-child(6) {
-    display: none;
-  }
-}
-
-main > div#documents table td:nth-child(1) div {
-  cursor: pointer;
-  font-weight: bold;
-}
-
-main > div#documents table tbody tr:not(:last-child) {
-  border-bottom: 1px solid lightgrey;
-}
-
-main > div#directBooking .bookingSeparator {
-  height: 15px;
-}
-
-main > div#directBooking .bookingSeparator div {
-  border-bottom: 1px solid lightgrey;
-  margin-top: 10px;
-}
-
-main > div#directBooking #directBookingDivider {
-  border-bottom: 3px solid #00b7a6;
-  height: 3px;
-  margin: 20px 0;
-}
-
-main > div#directBooking #directBookingAddButton {
-  margin-left: 5px;
-}
-
-main > div#directBooking #directBookingAddNewBooking > table {
-  width: 100%;
-}
-
-main > div#directBooking #directBookingAddNewBooking > table p {
-  margin: 8px 0;
-}
-
-main > div#directBooking #directBookingAddNewBooking > table input[type="radio"] {
-  width: initial;
-}
-
-main > div#directBooking #directBookingAddNewBooking > table #directBookingNightlyRate {
-  width: 30%;
-}
-
-main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > th:not(:nth-child(3)),
-main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > td:not(:nth-child(3)) {
-  width: 30%;
-}
-
-@media (max-width: 992px) {
-  main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > th:not(:nth-child(3)),
-  main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > td:not(:nth-child(3)) {
-    width: 50%;
-  }
-}
-
-main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > th:nth-child(3),
-main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > td:nth-child(3) {
-  width: 40%;
-}
-
-@media (max-width: 992px) {
-  main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > th:nth-child(3),
-  main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > td:nth-child(3) {
-    display: none;
-  }
-}
-
-main > div#directBooking table.picker__table th {
-  text-align: center;
-}
-
-main > div#directBooking table#bookingTable {
-  width: 100%;
-}
-
-main > div#directBooking table#bookingTable th {
-  font-size: 0.9em;
-  cursor: pointer;
-}
-
-main > div#directBooking table#bookingTable th,
-main > div#directBooking table#bookingTable td {
-  padding: 5px;
-  text-align: left;
-}
-
-main > div#directBooking #directBookingCalendarContainer {
-  display: none;
-  position: fixed;
-  width: 70%;
-  height: 80%;
-  left: 15%;
-  top: 10%;
-  background-color: white;
-  border: 1px solid black;
-}
-
-@media (max-width: 768px) {
-  main > div#directBooking #directBookingCalendarContainer {
-    width: 90%;
-    left: 5%;
-  }
-}
-
-@media (max-width: 550px) {
-  main > div#directBooking #directBookingCalendarContainer {
+  margin-top: 10px; }
+  main > div#welcome .proposalUser {
+    display: none; }
+  main > div#profile .profileSeparator {
+    height: 30px; }
+    main > div#profile .profileSeparator div {
+      border-bottom: 1px solid lightgrey; }
+  main > div#profile table {
     width: 100%;
-    left: 0;
-  }
-}
-
-main > div#directBooking #directBookingCalendarContainer .closeIcon {
-  position: absolute;
-  right: 20px;
-  font-size: 2.5em;
-  cursor: pointer;
-}
-
-main > div#directBooking #directBookingCalendarContainer #bookingCalendar {
-  width: 100%;
-}
-
-main > div#directBooking #directBookingCalendarContainer #bookingCalendar th {
-  text-align: center;
-  font-size: 2em;
-}
-
-main > div#directBooking #directBookingCalendarContainer .reservationCalendar {
-  margin-left: -30px;
-  margin-right: 10px;
-  margin-top: 10px;
-}
-
-main > div#directBooking #directBookingCalendarContainer li.tile {
-  width: calc(100% / 7);
-  display: inline-block;
-  color: black;
-  position: relative;
-  float: left;
-  border: 1px solid rgba(127, 255, 212, 0.5);
-}
-
-main > div#directBooking #directBookingCalendarContainer li.tile.dateContainer {
-  height: 11vh;
-}
-
-main > div#directBooking #directBookingCalendarContainer li.tile .date {
-  padding: 1.5% 5% 80% 6%;
-  text-align: left;
-}
-
-main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker {
-  position: absolute;
-  top: 50%;
-  left: -1px;
-  right: -1px;
-  height: 18px;
-  background-color: #12a144;
-}
-
-main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker.blockedDate {
-  background-color: darkgrey;
-}
-
-main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker.reservationStartMarker {
-  left: 25%;
-  border-radius: 10px 0 0 10px;
-}
-
-main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker.reservationEndMarker {
-  right: 85%;
-  border-radius: 0 10px 10px 0;
-}
-
-main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .guestName {
-  position: absolute;
-  text-align: center;
-  z-index: 2;
-  color: white;
-  white-space: nowrap;
-  width: 100%;
-  font-weight: bold;
-}
-
-@media (max-width: 550px) {
-  main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .guestName {
-    font-size: .8em;
-  }
-}
-
-main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .reservationGuestThumbnail {
-  border-radius: 50%;
-  position: absolute;
-  z-index: 1;
-  height: 45px;
-  top: -15px;
-  left: 3px;
-}
-
-@media (max-width: 550px) {
-  main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .reservationGuestThumbnail {
-    height: 35px;
-    top: -10px;
-  }
-}
-
-main > div#directBooking #directBookingCalendarContainer li.tile .bookingPrices {
-  position: absolute;
-  bottom: 5px;
-  left: 30%;
-}
-
-main > div#admin button {
-  margin-top: 10px;
-}
-
-main > div#admin .usersLabel {
-  margin-top: 20px;
-  margin-bottom: 5px;
-}
-
-main > div#admin #adminContractExpiryEmailTimeTable {
-  margin-bottom: 20px;
-}
-
-main > div#admin #adminContractExpiryEmailTimeTable input {
-  width: inherit;
-}
-
-main > div#admin table#userTable {
-  width: 100%;
-}
-
-main > div#admin table#userTable th {
-  font-size: 0.9em;
-}
-
-main > div#admin table#userTable th,
-main > div#admin table#userTable td {
-  padding: 5px;
-  border-top: 1px solid teal;
-}
-
-main > div#admin table#userTable th:nth-child(6), main > div#admin table#userTable th:nth-child(7),
-main > div#admin table#userTable td:nth-child(6),
-main > div#admin table#userTable td:nth-child(7) {
-  text-align: left;
-}
-
-main > div#admin table#userTable img.sendWelcomeEmail {
-  height: 24px;
-  cursor: pointer;
-}
-
-main > div#admin table#userTable img.deleteCustomer {
-  height: 22px;
-  cursor: pointer;
-}
+    margin-bottom: 20px; }
+    main > div#profile table th:not(:nth-child(4)),
+    main > div#profile table td:not(:nth-child(4)) {
+      width: 23%; }
+      @media (max-width: 992px) {
+        main > div#profile table th:not(:nth-child(4)),
+        main > div#profile table td:not(:nth-child(4)) {
+          width: 33.33%; } }
+    main > div#profile table th:nth-child(4),
+    main > div#profile table td:nth-child(4) {
+      width: 31%; }
+      @media (max-width: 992px) {
+        main > div#profile table th:nth-child(4),
+        main > div#profile table td:nth-child(4) {
+          display: none; } }
+  main > div#properties #propertiesAdd,
+  main > div#properties #propertiesAddNewProperty,
+  main > div#properties #propertyMobile {
+    display: none; }
+  @media (max-width: 600px) {
+    main > div#properties #propertyMobile {
+      display: block; }
+    main > div#properties #propertyTable {
+      display: none; } }
+  main > div#properties table#propertyTable {
+    width: 100%; }
+    main > div#properties table#propertyTable th {
+      font-size: 0.9em;
+      cursor: pointer; }
+    main > div#properties table#propertyTable th,
+    main > div#properties table#propertyTable td {
+      padding: 5px;
+      text-align: left;
+      cursor: pointer; }
+      main > div#properties table#propertyTable th:nth-child(1),
+      main > div#properties table#propertyTable td:nth-child(1) {
+        width: 18%; }
+        main > div#properties table#propertyTable th:nth-child(1) img,
+        main > div#properties table#propertyTable td:nth-child(1) img {
+          width: 100%; }
+      main > div#properties table#propertyTable th:nth-child(3),
+      main > div#properties table#propertyTable td:nth-child(3) {
+        width: 12.5%; }
+      main > div#properties table#propertyTable th:nth-child(4),
+      main > div#properties table#propertyTable td:nth-child(4) {
+        width: 20%; }
+      main > div#properties table#propertyTable th:nth-child(5),
+      main > div#properties table#propertyTable td:nth-child(5) {
+        width: 40%; }
+      main > div#properties table#propertyTable th:nth-child(7) > div,
+      main > div#properties table#propertyTable td:nth-child(7) > div {
+        border: 1px solid #00b7a6; }
+    main > div#properties table#propertyTable img {
+      width: 200px; }
+  main > div#properties table#propertyMobile {
+    width: 100%;
+    font-size: .8em; }
+    main > div#properties table#propertyMobile tr:not(:first-child) {
+      border-top: 1px solid lightgrey; }
+    main > div#properties table#propertyMobile td {
+      padding: 15px 5px;
+      text-align: left;
+      cursor: pointer; }
+      main > div#properties table#propertyMobile td:nth-child(1) {
+        width: 40%; }
+        main > div#properties table#propertyMobile td:nth-child(1) img {
+          width: 100%; }
+      main > div#properties table#propertyMobile td:nth-child(3) {
+        width: 60%; }
+        main > div#properties table#propertyMobile td:nth-child(3) > div:nth-child(2) {
+          margin-bottom: 1em; }
+        main > div#properties table#propertyMobile td:nth-child(3) > div:nth-child(3) div {
+          border: 1px solid #00b7a6;
+          width: 20%;
+          display: inline-block; }
+  main > div#properties #propertySubpage .calendar-container {
+    position: relative;
+    padding-bottom: 100%;
+    height: 0;
+    overflow: hidden; }
+    @media (max-width: 992px) {
+      main > div#properties #propertySubpage .calendar-container {
+        padding-bottom: 50%; } }
+    @media (min-width: 1200px) {
+      main > div#properties #propertySubpage .calendar-container {
+        padding-bottom: 75%; } }
+    @media (max-width: 650px) {
+      main > div#properties #propertySubpage .calendar-container {
+        padding-bottom: 75%; } }
+    main > div#properties #propertySubpage .calendar-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%; }
+  main > div#properties #propertySubpage img.propertyImage {
+    width: 100%;
+    cursor: pointer; }
+  main > div#properties #propertySubpage img.airbnbButtonImage, main > div#properties #propertySubpage img.makeBookingButtonImage {
+    margin-right: 5px;
+    width: 24px; }
+  main > div#properties #propertySubpage .propertySubpageSeparator {
+    height: 2px;
+    border-bottom: 1px solid lightgrey; }
+  main > div#properties #propertySubpage .propertySubpageLinkButtons {
+    width: 49%;
+    padding: 5px 0; }
+  main > div#properties #propertySubpage #propertySubpageMakeBookingButton {
+    background-color: #668cd9; }
+  main > div#properties #propertySubpage .row {
+    border-bottom: 1px solid lightgrey; }
+    main > div#properties #propertySubpage .row:last-child {
+      border: 0; }
+    main > div#properties #propertySubpage .row > div {
+      margin: 15px 0; }
+  main > div#properties #propertySubpage #propertySubpagePropertyStatus {
+    width: 120px; }
+  main > div#properties #propertySubpage #propertySubpageCommencementFeeReceivedYes,
+  main > div#properties #propertySubpage #propertySubpageCommencementFeeReceivedNo {
+    width: 30px; }
+  main > div#properties #propertySubpage #infoContainer table td:first-child {
+    width: 130px; }
+  main > div#properties #propertySubpage table {
+    width: 100%; }
+    main > div#properties #propertySubpage table td, main > div#properties #propertySubpage table th {
+      padding: 5px 0; }
+    main > div#properties #propertySubpage table#propertySubpageImageAndButton td {
+      text-align: center;
+      color: white; }
+      main > div#properties #propertySubpage table#propertySubpageImageAndButton td.calendarWarning {
+        color: black; }
+    main > div#properties #propertySubpage table#bookingCalendar th {
+      color: black;
+      text-align: center; }
+    main > div#properties #propertySubpage table .reservationCalendar {
+      padding: 0; }
+      main > div#properties #propertySubpage table .reservationCalendar li.tile {
+        width: calc(100% / 7);
+        display: inline-block;
+        color: black;
+        position: relative;
+        float: left;
+        border: 1px solid rgba(127, 255, 212, 0.5); }
+        main > div#properties #propertySubpage table .reservationCalendar li.tile .date {
+          padding: 1.5% 5% 80% 6%;
+          text-align: left; }
+        main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker {
+          position: absolute;
+          top: 50%;
+          left: -1px;
+          right: -1px;
+          height: 18px;
+          background-color: #12a144; }
+          main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker.blockedDate {
+            background-color: darkgrey; }
+          main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker.reservationStartMarker {
+            left: 25%;
+            border-radius: 10px 0 0 10px; }
+          main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker.reservationEndMarker {
+            right: 85%;
+            border-radius: 0 10px 10px 0; }
+          main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .guestName {
+            position: absolute;
+            text-align: center;
+            z-index: 2;
+            color: white;
+            white-space: nowrap;
+            width: 100%;
+            font-weight: bold; }
+          main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestThumbnail {
+            border-radius: 50%;
+            position: absolute;
+            z-index: 1;
+            height: 45px;
+            top: -15px;
+            left: 3px; }
+            @media (max-width: 550px) {
+              main > div#properties #propertySubpage table .reservationCalendar li.tile .reservationMarker .reservationGuestThumbnail {
+                height: 40px;
+                top: -10px; } }
+        main > div#properties #propertySubpage table .reservationCalendar li.tile .bookingPrices {
+          position: absolute;
+          bottom: 5px;
+          left: 30%; }
+    main > div#properties #propertySubpage table div[contenteditable='true'] {
+      display: inline-block;
+      width: 70px; }
+    main > div#properties #propertySubpage table [contenteditable='true'] {
+      padding-left: 2px;
+      border: 1px solid #00b7a6; }
+  main > div#properties #propertySubpage iframe .nav-table td:nth-child(5), main > div#properties #propertySubpage iframe .nav-table td:nth-child(6), main > div#properties #propertySubpage iframe .nav-table td.calendar-nav,
+  main > div#properties #propertySubpage iframe .nav-table td.date-nav-buttons .today-button {
+    display: none; }
+  main > div#documents #documentsAdd,
+  main > div#documents #documentsAddNewDocument,
+  main > div#documents #documentsAddFilename {
+    display: none; }
+  main > div#documents #orText {
+    text-align: left;
+    font-size: 2em;
+    font-weight: bold; }
+  main > div#documents .nav.nav-tabs {
+    margin-top: 20px; }
+  main > div#documents table {
+    width: 100%; }
+    main > div#documents table th {
+      font-size: 0.9em;
+      cursor: pointer; }
+    main > div#documents table th,
+    main > div#documents table td {
+      padding: 5px;
+      text-align: left; }
+      main > div#documents table th:nth-child(1),
+      main > div#documents table td:nth-child(1) {
+        width: 26%; }
+      main > div#documents table th:nth-child(2), main > div#documents table th:nth-child(3),
+      main > div#documents table td:nth-child(2),
+      main > div#documents table td:nth-child(3) {
+        width: 8%; }
+      main > div#documents table th:nth-child(4), main > div#documents table th:nth-child(5),
+      main > div#documents table td:nth-child(4),
+      main > div#documents table td:nth-child(5) {
+        width: 10%;
+        text-align: left; }
+        main > div#documents table th:nth-child(4) img, main > div#documents table th:nth-child(5) img,
+        main > div#documents table td:nth-child(4) img,
+        main > div#documents table td:nth-child(5) img {
+          cursor: pointer; }
+      main > div#documents table th:nth-child(6),
+      main > div#documents table td:nth-child(6) {
+        width: 10%; }
+        @media (max-width: 992px) {
+          main > div#documents table th:nth-child(6),
+          main > div#documents table td:nth-child(6) {
+            display: none; } }
+    main > div#documents table td:nth-child(1) div {
+      cursor: pointer;
+      font-weight: bold; }
+    main > div#documents table tbody tr:not(:last-child) {
+      border-bottom: 1px solid lightgrey; }
+  main > div#directBooking .bookingSeparator {
+    height: 15px; }
+    main > div#directBooking .bookingSeparator div {
+      border-bottom: 1px solid lightgrey;
+      margin-top: 10px; }
+  main > div#directBooking #directBookingDivider {
+    border-bottom: 3px solid #00b7a6;
+    height: 3px;
+    margin: 20px 0; }
+  main > div#directBooking #directBookingAddButton {
+    margin-left: 5px; }
+  main > div#directBooking #directBookingAddNewBooking > table {
+    width: 100%; }
+    main > div#directBooking #directBookingAddNewBooking > table p {
+      margin: 8px 0; }
+    main > div#directBooking #directBookingAddNewBooking > table input[type="radio"] {
+      width: initial; }
+    main > div#directBooking #directBookingAddNewBooking > table #directBookingNightlyRate {
+      width: 30%; }
+    main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > th:not(:nth-child(3)),
+    main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > td:not(:nth-child(3)) {
+      width: 30%; }
+      @media (max-width: 992px) {
+        main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > th:not(:nth-child(3)),
+        main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > td:not(:nth-child(3)) {
+          width: 50%; } }
+    main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > th:nth-child(3),
+    main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > td:nth-child(3) {
+      width: 40%; }
+      @media (max-width: 992px) {
+        main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > th:nth-child(3),
+        main > div#directBooking #directBookingAddNewBooking > table > tbody > tr > td:nth-child(3) {
+          display: none; } }
+  main > div#directBooking table.picker__table th {
+    text-align: center; }
+  main > div#directBooking table#bookingTable {
+    width: 100%; }
+    main > div#directBooking table#bookingTable th {
+      font-size: 0.9em;
+      cursor: pointer; }
+    main > div#directBooking table#bookingTable th,
+    main > div#directBooking table#bookingTable td {
+      padding: 5px;
+      text-align: left; }
+  main > div#directBooking #directBookingCalendarContainer {
+    display: none;
+    position: fixed;
+    width: 70%;
+    height: 80%;
+    left: 15%;
+    top: 10%;
+    background-color: white;
+    border: 1px solid black; }
+    @media (max-width: 768px) {
+      main > div#directBooking #directBookingCalendarContainer {
+        width: 90%;
+        left: 5%; } }
+    @media (max-width: 550px) {
+      main > div#directBooking #directBookingCalendarContainer {
+        width: 100%;
+        left: 0; } }
+    main > div#directBooking #directBookingCalendarContainer .closeIcon {
+      position: absolute;
+      right: 20px;
+      font-size: 2.5em;
+      cursor: pointer; }
+    main > div#directBooking #directBookingCalendarContainer #bookingCalendar {
+      width: 100%; }
+      main > div#directBooking #directBookingCalendarContainer #bookingCalendar th {
+        text-align: center;
+        font-size: 2em; }
+    main > div#directBooking #directBookingCalendarContainer .reservationCalendar {
+      margin-left: -30px;
+      margin-right: 10px;
+      margin-top: 10px; }
+    main > div#directBooking #directBookingCalendarContainer li.tile {
+      width: calc(100% / 7);
+      display: inline-block;
+      color: black;
+      position: relative;
+      float: left;
+      border: 1px solid rgba(127, 255, 212, 0.5); }
+      main > div#directBooking #directBookingCalendarContainer li.tile.dateContainer {
+        height: 11vh; }
+      main > div#directBooking #directBookingCalendarContainer li.tile .date {
+        padding: 1.5% 5% 80% 6%;
+        text-align: left; }
+      main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker {
+        position: absolute;
+        top: 50%;
+        left: -1px;
+        right: -1px;
+        height: 18px;
+        background-color: #12a144; }
+        main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker.blockedDate {
+          background-color: darkgrey; }
+        main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker.reservationStartMarker {
+          left: 25%;
+          border-radius: 10px 0 0 10px; }
+        main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker.reservationEndMarker {
+          right: 85%;
+          border-radius: 0 10px 10px 0; }
+        main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .guestName {
+          position: absolute;
+          text-align: center;
+          z-index: 2;
+          color: white;
+          white-space: nowrap;
+          width: 100%;
+          font-weight: bold; }
+          @media (max-width: 550px) {
+            main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .guestName {
+              font-size: .8em; } }
+        main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .reservationGuestThumbnail {
+          border-radius: 50%;
+          position: absolute;
+          z-index: 1;
+          height: 45px;
+          top: -15px;
+          left: 3px; }
+          @media (max-width: 550px) {
+            main > div#directBooking #directBookingCalendarContainer li.tile .reservationMarker .reservationGuestThumbnail {
+              height: 35px;
+              top: -10px; } }
+      main > div#directBooking #directBookingCalendarContainer li.tile .bookingPrices {
+        position: absolute;
+        bottom: 5px;
+        left: 30%; }
+  main > div#admin button {
+    margin-top: 10px; }
+  main > div#admin .usersLabel {
+    margin-top: 20px;
+    margin-bottom: 5px; }
+  main > div#admin #adminContractExpiryEmailTimeTable {
+    margin-bottom: 20px; }
+    main > div#admin #adminContractExpiryEmailTimeTable input {
+      width: inherit; }
+  main > div#admin table#userTable {
+    width: 100%; }
+    main > div#admin table#userTable th {
+      font-size: 0.9em; }
+    main > div#admin table#userTable th,
+    main > div#admin table#userTable td {
+      padding: 5px;
+      border-top: 1px solid teal; }
+      main > div#admin table#userTable th:nth-child(6), main > div#admin table#userTable th:nth-child(7),
+      main > div#admin table#userTable td:nth-child(6),
+      main > div#admin table#userTable td:nth-child(7) {
+        text-align: left; }
+    main > div#admin table#userTable img.sendWelcomeEmail {
+      height: 24px;
+      cursor: pointer; }
+    main > div#admin table#userTable img.deleteCustomer {
+      height: 22px;
+      cursor: pointer; }
 
 input[type='checkbox'] {
   width: initial;
-  margin-left: 10px;
-}
+  margin-left: 10px; }

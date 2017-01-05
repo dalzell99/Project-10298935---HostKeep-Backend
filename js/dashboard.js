@@ -627,7 +627,7 @@ function propertySubpage() {
 		html += "                <div id='calendarContainer'></div>";
 		html += "            </td>";
 		html += "        <tr>";
-		html += "            <td>Booking values are gross of cleaning fee, Airbnb fees, and management cost, so should be considered representative only. Please refer to the property End of Month report for confirmed values.</td>";
+		html += "            <td class='calendarWarning'>Booking values are gross of cleaning fee, Airbnb fees, and management cost, so should be considered representative only. Please refer to the property End of Month report for confirmed values.</td>";
 		html += "        </tr>";
 		html += "        <tr>";
 		html += "            <td>";
@@ -1863,6 +1863,7 @@ function addInfoToCalendar() {
 			response = JSON.parse(response);
 			var reservations = response.reservations;
 			var bookings = response.bookings;
+			var directBookings = response.directBookings;
 			reservations.forEach(function (res) {
 				var startMarker = "";
 				startMarker += "<div class='reservationMarker reservationStartMarker'>";
@@ -1899,34 +1900,61 @@ function addInfoToCalendar() {
 				}
 			});
 
-			var middleBookingMarker = "<div class='reservationMarker reservationMiddleMarker blockedDate'></div>";
+			// var middleBookingMarker = "<div class='reservationMarker reservationMiddleMarker blockedDate'></div>";
 			var endBookingMarker = "<div class='reservationMarker reservationEndMarker blockedDate'></div>";
 			var db = isDirectBooking();
 
-			bookings.forEach(function (booking, index) {
+			directBookings.forEach(function (booking, index) {
 				var startBookingMarker = "";
 				startBookingMarker += "<div class='reservationMarker reservationStartMarker blockedDate'>";
 				startBookingMarker += "    <div class='reservationGuestInfo'>";
 				startBookingMarker += "        <img src='./images/booking-calendar.png' alt='calendar icon' class='reservationGuestThumbnail'>";
-				startBookingMarker += "        <span>Direct</span>";
 				startBookingMarker += "    </div>";
 				startBookingMarker += "</div>";
 
-				if (booking.type === 'busy') {
-					if (index === bookings.length - 1) {
-						// end
-						$('.' + booking.date).append(endBookingMarker);
-					} else if (index === 0 || (bookings[index - 1].type !== 'busy' && bookings[index + 1].type === 'busy')) {
-						// start
-						$('.' + booking.date).append(startBookingMarker);
-					} else if (bookings[index - 1].type === 'busy') {
-						// middle
-						$('.' + booking.date).append(middleBookingMarker);
+				var startDate = moment(booking.guestCheckIn);
+				var currentDate = moment(booking.guestCheckIn);
+				var endDate = moment(booking.guestCheckOut);
+
+				while (endDate.diff(currentDate) >= 0) {
+					var date = currentDate.format("YYYY-MM-DD");
+					if (startDate.diff(currentDate) === 0) {
+						$('.' + date).append(startBookingMarker);
+					} else if (endDate.diff(currentDate) === 0) {
+						$('.' + date).append(endBookingMarker);
+					} else {
+						var middleBookingMarker = "";
+						middleBookingMarker += "<div class='reservationMarker reservationMiddleMarker blockedDate'>";
+						// If yesterday was the checkin day, add the guests name
+						// to marker
+						if (moment(currentDate).subtract(1, 'days').diff(moment(startDate)) === 0) {
+							middleBookingMarker += "<span>Direct</span>";
+						}
+						middleBookingMarker += "</div>";
+						$('.' + date).append(middleBookingMarker);
 					}
-				} else if (index !== 0 && bookings[index - 1].type === 'busy') {
-					$('.' + booking.date).append(endBookingMarker);
+
+					currentDate.add(1, 'day');
 				}
 
+
+				// if (booking.type === 'busy') {
+				// if (index === bookings.length - 1) {
+				// 	// end
+				// 	$('.' + booking.date).append(endBookingMarker);
+				// } else if (index === 0 || (bookings[index - 1].type !== 'busy' && bookings[index + 1].type === 'busy')) {
+				// 	// start
+				// 	$('.' + booking.date).append(startBookingMarker);
+				// } else if (bookings[index - 1].type === 'busy') {
+				// 	// middle
+				// 	$('.' + booking.date).append(middleBookingMarker);
+				// }
+				// } else if (index !== 0 && bookings[index - 1].type === 'busy') {
+				// 	$('.' + booking.date).append(endBookingMarker);
+				// }
+			});
+
+			bookings.forEach(function (booking, index) {
 				if ($("." + booking.date + " .reservationMiddleMarker").length === 0) {
 					if ($("." + booking.date + " .reservationStartMarker").length === 0) {
 						var html = "";
@@ -1942,7 +1970,7 @@ function addInfoToCalendar() {
 							click: function () {
 								setDateInput(date);
 							}
-						})
+						});
 					}
 				}
 			});
