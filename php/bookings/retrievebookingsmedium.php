@@ -50,8 +50,8 @@ while ($row = mysqli_fetch_assoc($result)) {
 	}
 }
 
-sendEmail('dalzell99@hotmail.com', $noReplyEmail, 'Bookings', $sql);
-echo $sql;
+// sendEmail('dalzell99@hotmail.com', $noReplyEmail, 'Bookings', $sql);
+// echo $sql;
 
 mysqli_close($con);
 ?>

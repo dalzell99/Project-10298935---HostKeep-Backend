@@ -205,6 +205,10 @@ main > div {
           position: absolute;
           bottom: 5px;
           left: 30%; }
+        main > div#properties #propertySubpage table .reservationCalendar li.tile .blockedDate {
+          position: absolute;
+          bottom: 5px;
+          width: 100%; }
     main > div#properties #propertySubpage table div[contenteditable='true'] {
       display: inline-block;
       width: 70px; }
@@ -389,6 +393,10 @@ main > div {
         position: absolute;
         bottom: 5px;
         left: 30%; }
+      main > div#directBooking #directBookingCalendarContainer li.tile .blockedDate {
+        position: absolute;
+        bottom: 5px;
+        width: 100%; }
   main > div#admin button {
     margin-top: 10px; }
   main > div#admin .usersLabel {

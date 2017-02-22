@@ -113,7 +113,7 @@ $(function() {
 
 		// Get customer list if admin logged in
 		if (sessionStorage.admin !== null && sessionStorage.admin === 'true') {
-			$.post("./php/customer/getallcustomers.php", {
+			$.post(ROOT_FOLDER + "php/customer/getallcustomers.php", {
 
 			}, function(response) {
 				if (response === 'fail') {
@@ -144,7 +144,7 @@ $(function() {
 					// When a different user is selected change, get user info and call changeUser function
 					$("#headerUserSelect").on({
 						change: function () {
-							$.post("./php/customer/getuserinfo.php", {
+							$.post(ROOT_FOLDER + "php/customer/getuserinfo.php", {
 								username: $(this).val()
 							}, function(response) {
 								if (response === 'fail') {
@@ -171,7 +171,7 @@ $(function() {
 		}
 
 		// Get the direct bookings for the logged in user
-		$.post("./php/directbooking/getbookings.php", {
+		$.post(ROOT_FOLDER + "php/directbooking/getbookings.php", {
 			customerID: sessionStorage.customerID
 		}, function(response) {
 			if (response === 'fail') {
@@ -194,7 +194,7 @@ $(function() {
 
 
 		// Get the properties for the logged in user
-		$.post("./php/properties/getproperties.php", {
+		$.post(ROOT_FOLDER + "php/properties/getproperties.php", {
 			username: sessionStorage.username
 		}, function(response) {
 			if (response === 'fail') {
@@ -216,7 +216,7 @@ $(function() {
 		});
 
 		// Get all the properties
-		$.post("./php/properties/getallproperties.php", {
+		$.post(ROOT_FOLDER + "php/properties/getallproperties.php", {
 
 		}, function(response) {
 			if (response === 'fail') {
@@ -245,7 +245,7 @@ $(function() {
 			//displayMessage('error', "Error: Something went wrong with getproperties AJAX POST");
 		});
 
-		$.post("./php/documents/getdocuments.php", {
+		$.post(ROOT_FOLDER + "php/documents/getdocuments.php", {
 			username: sessionStorage.username
 		}, function(response) {
 			if (response === 'fail') {
@@ -409,7 +409,7 @@ function profile() {
 	// Save profile changes on button click
 	$("#profileButton").on({
 		click: function () {
-			$.post("./php/customer/saveprofilechanges.php", {
+			$.post(ROOT_FOLDER + "php/customer/saveprofilechanges.php", {
 				admin: sessionStorage.admin,
 				changes: JSON.stringify(changes),
 				salutation: $("#profileSalutation").val(),
@@ -514,11 +514,11 @@ function properties() {
 		click: function () {
 			var filename = $("#propertiesAddImageURL").val() !== '' ?
 				$("#propertiesAddImageURL").val() :
-				"http://owners.hostkeep.com.au/images/properties/" + $("#propertiesDropzone").find(".dz-filename:first > *").text();
+				"https://owners.hostkeep.com.au/images/properties/" + $("#propertiesDropzone").find(".dz-filename:first > *").text();
 
 			var valid = arePropertyInputsValid();
 			if (valid[0]) {
-				$.post("./php/properties/addproperty.php", {
+				$.post(ROOT_FOLDER + "php/properties/addproperty.php", {
 					username: sessionStorage.username,
 					propertyID: $("#propertiesAddID").val(),
 					name: $("#propertiesAddName").val(),
@@ -631,8 +631,8 @@ function propertySubpage() {
 		html += "        </tr>";
 		html += "        <tr>";
 		html += "            <td>";
-		html += "                <button class='propertySubpageLinkButtons' onclick='viewListingPage(" + propertyInfo.airbnbURL + ")'><img class='airbnbButtonImage' src='./images/airbnbLogo.png' alt='' />View Airbnb listing</button>";
-		html += "                <button id='propertySubpageMakeBookingButton' class='propertySubpageLinkButtons' onclick='window.location.hash = \"#direct-booking\";'><img class='makeBookingButtonImage' src='./images/makeBooking.png' alt='' />Make a booking</button>";
+		html += "                <button class='propertySubpageLinkButtons' onclick='viewListingPage(" + propertyInfo.airbnbURL + ")'><img class='airbnbButtonImage' src='" + ROOT_FOLDER + "images/airbnbLogo.png' alt='' />View Airbnb listing</button>";
+		html += "                <button id='propertySubpageMakeBookingButton' class='propertySubpageLinkButtons' onclick='window.location.hash = \"#direct-booking\";'><img class='makeBookingButtonImage' src='" + ROOT_FOLDER + "images/makeBooking.png' alt='' />Make a booking</button>";
 		html += "            </td>";
 		html += "        </tr>";
 		html += "    </table>";
@@ -938,7 +938,7 @@ function saveSubpageInfo() {
 
 	var contractExpiryDateChanged = (contractExpiryDate != currentContractExpiryDate ? 'true' : 'false');
 
-	$.post("./php/properties/savesubpagechanges.php", {
+	$.post(ROOT_FOLDER + "php/properties/savesubpagechanges.php", {
 		propertyID: $("#propertySubpagePropertyID").text(),
 		name: $("#propertySubpageName").text(),
 		description: $("#propertySubpageDescription").text(),
@@ -1063,6 +1063,7 @@ function documents() {
 
 		// Sort by month
 		var monthHeader = $("#documents th:nth-child(3)")[i];
+		monthHeader.className = ""; /* Fix a bug by removing the sort table classname and forcing it to treat the table as unsorted */
 		sorttable.innerSortFunction.apply(monthHeader, []);
 	});
 
@@ -1115,7 +1116,11 @@ function documents() {
 	// Empty property dropdown and rebuild it
 	$("#documentsAddPropertyID").empty();
 	allPropertyList.forEach(function (value) {
-		$("#documentsAddPropertyID").append("<option value='" + value.propertyID + "'>" + value.name + "</option>");
+		if (value.status !== 'retired' && value.status !== '') {
+			$("#documentsAddPropertyID").append("<option value='" + value.propertyID + "'>" + value.name + "</option>");
+		} else {
+			console.log(value.name);
+		}
 	});
 
 	// Set default selected month as last month
@@ -1145,7 +1150,7 @@ function documents() {
 			var filenameMinusExtension = filename.substr(0, filename.lastIndexOf("."));
 
 			if (filename !== '') {
-				$.post("./php/documents/adddocument.php", {
+				$.post(ROOT_FOLDER + "php/documents/adddocument.php", {
 					name: filenameMinusExtension,
 					propertyID: $("#documentsAddPropertyID").val(),
 					month: $("#documentsAddMonth").val(),
@@ -1216,11 +1221,11 @@ function documents() {
 }
 
 function viewDocument(filename) {
-	window.open("./documents/" + filename);
+	window.open(ROOT_FOLDER + "documents/" + filename);
 }
 
 function deleteDocument(id) {
-	$.post("./php/documents/deletedocument.php", {
+	$.post(ROOT_FOLDER + "php/documents/deletedocument.php", {
 		documentID: id
 	}, function(response) {
 		if (response === 'success') {
@@ -1255,7 +1260,7 @@ function password() {
 	$("#changepasswordButton").on({
 		click: function () {
 			if (currentPasswordCorrect && passwordsMatch) {
-				$.post("./php/customer/changepassword.php", {
+				$.post(ROOT_FOLDER + "php/customer/changepassword.php", {
 					username: sessionStorage.username,
 					password: $("#changepasswordNewPassword").val()
 				}, function(response) {
@@ -1281,7 +1286,7 @@ function password() {
 
 // Check the current password against the database and show tick or cross based on response
 function checkCurrentPassword() {
-	$.post("./php/customer/checkcurrentpassword.php", {
+	$.post(ROOT_FOLDER + "php/customer/checkcurrentpassword.php", {
 		username: sessionStorage.username,
 		password: $("#changepasswordCurrentPassword").val()
 	}, function(response) {
@@ -1420,7 +1425,7 @@ function directBooking() {
 					cleanUp = 'Guest';
 				}
 
-				$.post("./php/directbooking/addbooking.php", {
+				$.post(ROOT_FOLDER + "php/directbooking/addbooking.php", {
 					customerID: sessionStorage.customerID,
 					propertyID: $("#directBookingAddProperty").val(),
 					guestName: $("#directBookingAddGuestName").val(),
@@ -1521,7 +1526,7 @@ function areDirectBookingInputsValid() {
 function setDisabledDates() {
 	var propertyID = $("select#directBookingAddProperty").children(":selected").val();
 
-	$.get("./php/bookings/getbookings.php", {
+	$.get(ROOT_FOLDER + "php/bookings/getbookings.php", {
 		propertyID: propertyID
 	}, function(response) {
 		var disabledDates = [];
@@ -1546,7 +1551,7 @@ function setDisabledDates() {
 }
 
 function deleteBooking(id) {
-	$.post("./php/directbooking/deletebooking.php", {
+	$.post(ROOT_FOLDER + "php/directbooking/deletebooking.php", {
 		bookingID: id
 	}, function(response) {
 		if (response === 'success') {
@@ -1614,7 +1619,7 @@ function admin() {
 
 	$("select.status").on({
 		change: function () {
-			$.post("./php/customer/changestatus.php", {
+			$.post(ROOT_FOLDER + "php/customer/changestatus.php", {
 				customerID: this.classList[1],
 				status: $(this).val()
 			}, function(response) {
@@ -1629,7 +1634,7 @@ function admin() {
 		}
 	});
 
-	$.get("./php/contractexpiryemailtime/getcontractexpiryemailtime.php", {
+	$.get(ROOT_FOLDER + "php/contractexpiryemailtime/getcontractexpiryemailtime.php", {
 	}, function(response) {
 		$("#adminContractExpiryEmailTime").val(response);
 	});
@@ -1639,7 +1644,7 @@ function admin() {
 }
 
 function sendWelcomeEmail(username) {
-	$.post("./php/customer/sendwelcomeemail.php", {
+	$.post(ROOT_FOLDER + "php/customer/sendwelcomeemail.php", {
 		username: username
 	}, function(response) {
 		if (response === 'success') {
@@ -1654,7 +1659,7 @@ function sendWelcomeEmail(username) {
 
 function deleteCustomer(username) {
 	if (confirm("Click Ok to delete the customer")) {
-		$.post("./php/customer/deletecustomer.php", {
+		$.post(ROOT_FOLDER + "php/customer/deletecustomer.php", {
 			username: username
 		}, function(response) {
 			if (response === 'success') {
@@ -1670,7 +1675,7 @@ function deleteCustomer(username) {
 }
 
 function saveContractExpiryEmailTime() {
-	$.post("./php/contractexpiryemailtime/savecontractexpiryemailtime.php", {
+	$.post(ROOT_FOLDER + "php/contractexpiryemailtime/savecontractexpiryemailtime.php", {
 		months: $("#adminContractExpiryEmailTime").val()
 	}, function(response) {
 		if (response == 'success') {
@@ -1712,10 +1717,10 @@ function addPropertySubpageImageEvent() {
 
 			$("#newPropertyImageButton").on({
 				click: function () {
-					var imageURL = "http://owners.hostkeep.com.au/images/properties/" + $("#newPropertyImageDropzone").find(".dz-filename:first > *").text();
+					var imageURL = "https://owners.hostkeep.com.au/images/properties/" + $("#newPropertyImageDropzone").find(".dz-filename:first > *").text();
 
 					$.modal.close();
-					$.post("./php/properties/changepropertyimage.php", {
+					$.post(ROOT_FOLDER + "php/properties/changepropertyimage.php", {
 						propertyID: currentProperty,
 						imageURL: imageURL
 					}, function(response) {
@@ -1740,7 +1745,7 @@ function addDocumentChangeEvent() {
 		blur: function() {
 			if ($(this).text !== sessionStorage.contenteditable) {
 				var column = this.classList[0];
-				$.post("./php/documents/changedocumentinfo.php", {
+				$.post(ROOT_FOLDER + "php/documents/changedocumentinfo.php", {
 					documentID: $(this).parent().children(':nth-child(7)').text(),
 					column: column,
 					value: $(this).text()
@@ -1765,7 +1770,7 @@ function addDocumentChangeEvent() {
 
 // Create a new customer when admin clicks 'Create New Customer' button in admin section
 function createNewUser() {
-	$.post("./php/customer/createnewcustomeradmin.php", {
+	$.post(ROOT_FOLDER + "php/customer/createnewcustomeradmin.php", {
 		username: $("#adminNewCustomerUsername").val(),
 		firstName: $("#adminNewCustomerFirstName").val(),
 		lastName: $("#adminNewCustomerLastName").val()
@@ -1820,9 +1825,9 @@ function createCalendar() {
 	html += "    <table id='bookingCalendar'>";
 	html += "        <tr>";
 	html += "            <th colspan='7'>";
-	html += "                <img src='./images/calendar-previous.png' alt='Previous Month' onclick='showPreviousMonth()'>";
+	html += "                <img src=''" + ROOT_FOLDER + "images/calendar-previous.png' alt='Previous Month' onclick='showPreviousMonth()'>";
 	html += "                <span>    " + monthName + " " + currentYear + "    </span>";
-	html += "                <img src='./images/calendar-next.png' alt='Next Month' onclick='showNextMonth()'>";
+	html += "                <img src='" + ROOT_FOLDER + "images/calendar-next.png' alt='Next Month' onclick='showNextMonth()'>";
 	html += "            </th>";
 	html += "        </tr>";
 	html += "    </table>";
@@ -1853,7 +1858,7 @@ function createCalendar() {
 }
 
 function addInfoToCalendar() {
-	$.get("./php/bookings/getreservations.php", {
+	$.get(ROOT_FOLDER + "php/bookings/getreservations.php", {
 		airbnbID: currentAirbnbID,
 		propertyID: currentPropertyID
 	}, function(response) {
@@ -1908,7 +1913,7 @@ function addInfoToCalendar() {
 				var startBookingMarker = "";
 				startBookingMarker += "<div class='reservationMarker reservationStartMarker blockedDate'>";
 				startBookingMarker += "    <div class='reservationGuestInfo'>";
-				startBookingMarker += "        <img src='./images/booking-calendar.png' alt='calendar icon' class='reservationGuestThumbnail'>";
+				startBookingMarker += "        <img src='" + ROOT_FOLDER + "images/booking-calendar.png' alt='calendar icon' class='reservationGuestThumbnail'>";
 				startBookingMarker += "    </div>";
 				startBookingMarker += "</div>";
 
@@ -1936,31 +1941,21 @@ function addInfoToCalendar() {
 
 					currentDate.add(1, 'day');
 				}
-
-
-				// if (booking.type === 'busy') {
-				// if (index === bookings.length - 1) {
-				// 	// end
-				// 	$('.' + booking.date).append(endBookingMarker);
-				// } else if (index === 0 || (bookings[index - 1].type !== 'busy' && bookings[index + 1].type === 'busy')) {
-				// 	// start
-				// 	$('.' + booking.date).append(startBookingMarker);
-				// } else if (bookings[index - 1].type === 'busy') {
-				// 	// middle
-				// 	$('.' + booking.date).append(middleBookingMarker);
-				// }
-				// } else if (index !== 0 && bookings[index - 1].type === 'busy') {
-				// 	$('.' + booking.date).append(endBookingMarker);
-				// }
 			});
 
 			bookings.forEach(function (booking, index) {
 				if ($("." + booking.date + " .reservationMiddleMarker").length === 0) {
 					if ($("." + booking.date + " .reservationStartMarker").length === 0) {
 						var html = "";
-						html += "<div class='bookingPrices'>";
-						html += "    <span>$" + booking.price + "</span>";
-						html += "</div>";
+						if (['booked', 'available'].includes(booking.availability)) {
+							html += "<div class='bookingPrices'>";
+							html += "    <span>$" + booking.price + "</span>";
+							html += "</div>";
+						} else {
+							html += "<div class='blockedDate'>";
+							html += "    <span>" + booking.availability + "</span>";
+							html += "</div>";
+						}
 						$('.' + booking.date).append(html);
 					}
 
@@ -1973,6 +1968,10 @@ function addInfoToCalendar() {
 						});
 					}
 				}
+			});
+
+			$(".blockedDate").siblings('.date').css({
+				backgroundColor: 'rgb(235, 235, 235)'
 			});
 		} else {
 			displayMessage('error', 'Error getting the bookings for this property');

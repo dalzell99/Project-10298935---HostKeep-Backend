@@ -1,3 +1,5 @@
+var ROOT_FOLDER = "https://stephencolman.com.au/owners/";
+
 // Set toastr notification options
 $(function () {
 	toastr.options = {
